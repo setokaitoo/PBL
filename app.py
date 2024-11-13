@@ -36,10 +36,19 @@ def search():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        username = request.form['username']
+        password = request.form['password']
         user_id = request.form['user_id']
-        return redirect(url_for('mypage', username=username, user_id=user_id))
+        return redirect(url_for('mypage', password=password, user_id=user_id))
     return render_template('login.html')
+
+#新規登録画面
+@app.route('/adduser', methods=['GET', 'POST'])
+def adduser():
+    if request.method == 'POST':
+        password = request.form['password']
+        mail = request.form['mail']
+        return redirect(url_for('login', password=password, mail=mail))
+    return render_template('adduser.html')
 
 # マイページ画面
 @app.route('/mypage')
@@ -70,6 +79,7 @@ def details(store_id):
 @app.route('/map')
 def map():
     return render_template('map.html')
+
 
 if __name__ == '__main__':
     app.run()
