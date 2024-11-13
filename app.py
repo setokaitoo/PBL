@@ -3,6 +3,7 @@ from flask import render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import pytz
+import random, string
  
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///muroran.db'
@@ -58,7 +59,7 @@ def adduser():
 @app.route('/createuser')
 def createuser():
     user_id = request.args.get('user_id')
-    
+    return render_template('createuser', user_id=user_id)
 
 # マイページ画面
 @app.route('/mypage')
