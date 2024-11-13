@@ -2,19 +2,29 @@ from flask import Flask
 from flask import render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-import pytz
+from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
+from werkzeug.security import check_password_hash, generate_password_hash
  
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///muroran.db'
 db = SQLAlchemy(app)
- 
- 
-class user_table(db.Model):
+
+#インスタンス化
+login_manager = LoginManager()
+#アプリにログイン機能を紐づける
+login_manager.init_app(app)
+#未ログインユーザーを転送する 
+login_manager.login_view = 'login'
+
+class User(db.Model, UserMixin):
+    __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     mailaddress = db.Column(db.String(255), nullable=False)
     password = db.Column(db.String(50), nullable=False)
+    #def check_password(self, password):
+    #    return check_password_hash(self.password_hash, password)
     
-class post_table(db.Model):
+class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     time1 = db.Column(db.DateTime, nullable=False)
     place1 = db.Column(db.String(255), nullable=False)
@@ -25,6 +35,9 @@ class post_table(db.Model):
     time4 = db.Column(db.DateTime, nullable=False)
     place4 = db.Column(db.String(255), nullable=False)
     
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(user_id)
     
 # ホーム画面
 @app.route('/')
@@ -39,9 +52,19 @@ def search():
 # ログイン画面とユーザー登録処理
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    usert = User
     if request.method == 'POST':
         password = request.form['password']
         user_id = request.form['user_id']
+        
+        user = User.query.filter_by(user_id=usert.id).first()
+        if user is not None:
+            user = User.query.filter_by(password=usert.password).first()
+            if user is not None:
+                return redirect('mypage')           
+            else:
+                return redirect('login')
+        
         return redirect(url_for('mypage', password=password, user_id=user_id))
     return render_template('login.html')
 
