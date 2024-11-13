@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>店舗詳細</title>
+</head>
+<body>
+    <h1>店舗詳細ページ</h1>
+    <p>店舗名: {{ store.name }}</p>
+    <p>詳細: {{ store.description }}</p>
+    <a href="{{ url_for('map') }}">地図を見る</a>
+</body>
+</html>
