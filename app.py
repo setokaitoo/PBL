@@ -5,22 +5,26 @@ from datetime import datetime
 import pytz
  
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///muroran.db'
 db = SQLAlchemy(app)
  
  
-class BlogArticle(db.Model):
+class user_table(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(50), nullable=False)
-    body = db.Column(db.String(500), nullable=False)
-    created_at = db.Column(db.DateTime, nullable=False, default=datetime.now(pytz.timezone('Asia/Tokyo')))
- 
-#@app.route('/')
-#def blog():
-    #return render_template('index.html')
-
-#if __name__ == '__main__':
-    #app.run()
+    mailaddress = db.Column(db.String(255), nullable=False)
+    password = db.Column(db.String(50), nullable=False)
+    
+class post_table(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    time1 = db.Column(db.DateTime, nullable=False)
+    place1 = db.Column(db.String(255), nullable=False)
+    time2 = db.Column(db.DateTime, nullable=False)
+    place2 = db.Column(db.String(255), nullable=False)
+    time3 = db.Column(db.DateTime, nullable=False)
+    place3 = db.Column(db.String(255), nullable=False)
+    time4 = db.Column(db.DateTime, nullable=False)
+    place4 = db.Column(db.String(255), nullable=False)
+    
     
 # ホーム画面
 @app.route('/')
