@@ -2,8 +2,8 @@ from flask import Flask
 from flask import render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
-from werkzeug.security import check_password_hash, generate_password_hash
+import pytz
+import random, string
  
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///muroran.db'
@@ -74,8 +74,14 @@ def adduser():
     if request.method == 'POST':
         password = request.form['password']
         mail = request.form['mail']
-        return redirect(url_for('login', password=password, mail=mail))
+        return redirect(url_for('createuser', password=password, mail=mail))
     return render_template('adduser.html')
+
+#新規登録結果画面
+@app.route('/createuser')
+def createuser():
+    user_id = request.args.get('user_id')
+    return render_template('createuser', user_id=user_id)
 
 # マイページ画面
 @app.route('/mypage')
