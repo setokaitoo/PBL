@@ -4,6 +4,8 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import pytz
 import random, string
+from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
+from werkzeug.security import check_password_hash, generate_password_hash
  
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///muroran.db'
@@ -54,34 +56,39 @@ def search():
 def login():
     usert = User
     if request.method == 'POST':
-        password = request.form['password']
+        newpass = request.form['password']
         user_id = request.form['user_id']
         
-        user = User.query.filter_by(user_id=usert.id).first()
+        user = User.query.filter_by(id=user_id).first()
         if user is not None:
-            user = User.query.filter_by(password=usert.password).first()
+            user = User.query.filter_by(password=newpass).first()
             if user is not None:
                 return redirect('mypage')           
             else:
                 return redirect('login')
         
-        return redirect(url_for('mypage', password=password, user_id=user_id))
+        return redirect('login')
     return render_template('login.html')
 
 #新規登録画面
 @app.route('/adduser', methods=['GET', 'POST'])
 def adduser():
     if request.method == 'POST':
-        password = request.form['password']
+        newpass = request.form['password']
         mail = request.form['mail']
-        return redirect(url_for('createuser', password=password, mail=mail))
+        newid = 4
+        user = User(id=newid, mailaddress=mail, password=newpass)
+        db.session.add(user)
+        db.session.commit()
+        
+        return redirect(url_for('createuser', id=newid, mail=mail))
     return render_template('adduser.html')
 
 #新規登録結果画面
 @app.route('/createuser')
 def createuser():
-    user_id = request.args.get('user_id')
-    return render_template('createuser', user_id=user_id)
+    user_id = request.args.get('id')
+    return redirect(url_for('mypage', user_id=user_id))
 
 # マイページ画面
 @app.route('/mypage')
