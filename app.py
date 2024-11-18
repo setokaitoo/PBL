@@ -44,7 +44,17 @@ def login():
         password = request.form['password']
         user_id = request.form['user_id']
         return redirect(url_for('mypage', password=password, user_id=user_id))
-    return render_template('login.html')
+    
+    #エラーメッセージ表示
+    error_message = []
+    
+    if password is None or password == '':
+        error_message.append("ユーザー名が入力されていません")
+        
+    if  user_id is None or user_id == '':
+        error_message.append("パスワードが入力されていません")
+    
+    
 
 #新規登録画面
 @app.route('/adduser', methods=['GET', 'POST'])
@@ -57,8 +67,9 @@ def adduser():
 
 #新規登録結果画面
 @app.route('/createuser')
+
 def createuser():
-    user_id = request.args.get('user_id')
+    user_id = request.args.get('user_id')   
     return render_template('createuser', user_id=user_id)
 
 # マイページ画面

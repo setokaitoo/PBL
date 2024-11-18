@@ -10,10 +10,18 @@
         <label for="username">パスワード:</label>
         <input type="text" id="username" name="username" required>
         <br>
-        <label for="user_id">メールアドレス:</label>
+        <label for="user_id">ユーザーID:</label>
         <input type="text" id="user_id" name="user_id" required>
         <br>
         <button type="submit">登録</button>
     </form>
+
+    {% if error_message is not None %}
+    <ul>
+    {% for message in error_message %}
+    <li style="color:red">{{message}}</li>
+    {% endfor %}
+    </ul>
+    {% endif %}
 </body>
 </html>
