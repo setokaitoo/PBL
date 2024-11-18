@@ -4,18 +4,29 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import pytz
 import random, string
+from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
+from werkzeug.security import check_password_hash, generate_password_hash
  
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///muroran.db'
 db = SQLAlchemy(app)
- 
- 
-class user_table(db.Model):
+
+#インスタンス化
+login_manager = LoginManager()
+#アプリにログイン機能を紐づける
+login_manager.init_app(app)
+#未ログインユーザーを転送する 
+login_manager.login_view = 'login'
+
+class User(db.Model, UserMixin):
+    __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     mailaddress = db.Column(db.String(255), nullable=False)
     password = db.Column(db.String(50), nullable=False)
+    #def check_password(self, password):
+    #    return check_password_hash(self.password_hash, password)
     
-class post_table(db.Model):
+class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     time1 = db.Column(db.DateTime, nullable=False)
     place1 = db.Column(db.String(255), nullable=False)
@@ -26,6 +37,9 @@ class post_table(db.Model):
     time4 = db.Column(db.DateTime, nullable=False)
     place4 = db.Column(db.String(255), nullable=False)
     
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(user_id)
     
 # ホーム画面
 @app.route('/')
@@ -40,37 +54,42 @@ def search():
 # ログイン画面とユーザー登録処理
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    usert = User
     if request.method == 'POST':
-        password = request.form['password']
+        newpass = request.form['password']
         user_id = request.form['user_id']
-        return redirect(url_for('mypage', password=password, user_id=user_id))
-    
-    #エラーメッセージ表示
-    error_message = []
-    
-    if password is None or password == '':
-        error_message.append("ユーザー名が入力されていません")
         
-    if  user_id is None or user_id == '':
-        error_message.append("パスワードが入力されていません")
-    
-    
+        user = User.query.filter_by(id=user_id).first()
+        if user is not None:
+            user = User.query.filter_by(password=newpass).first()
+            if user is not None:
+                return redirect('mypage')           
+            else:
+                return redirect('login')
+        
+        return redirect('login')
+    return render_template('login.html')
 
 #新規登録画面
 @app.route('/adduser', methods=['GET', 'POST'])
 def adduser():
     if request.method == 'POST':
-        password = request.form['password']
+        newpass = request.form['password']
         mail = request.form['mail']
-        return redirect(url_for('createuser', password=password, mail=mail))
+        newid = 4
+        user = User(id=newid, mailaddress=mail, password=newpass)
+        db.session.add(user)
+        db.session.commit()
+        
+        return redirect(url_for('createuser', id=newid, mail=mail))
     return render_template('adduser.html')
 
 #新規登録結果画面
 @app.route('/createuser')
 
 def createuser():
-    user_id = request.args.get('user_id')   
-    return render_template('createuser', user_id=user_id)
+    user_id = request.args.get('id')
+    return redirect(url_for('mypage', user_id=user_id))
 
 # マイページ画面
 @app.route('/mypage')

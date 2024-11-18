@@ -1,0 +1,68 @@
+/* 全体のスタイル */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f9f9f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* ヘッダー */
+header {
+    background-color: #4CAF50; /* 明るい緑色 */
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 1.8em;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* ナビゲーションメニュー */
+nav {
+    background-color: #ffffff; /* 白色 */
+    margin: 0 auto;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+nav ul {
+    list-style: none; /* 点のマーカーを削除 */
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    text-decoration: none; /* 下線を削除 */
+    color: #4CAF50;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+    transition: all 0.3s ease; /* ホバーアニメーション */
+}
+
+nav ul li a:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 600px) {
+    header {
+        font-size: 1.5em;
+    }
+
+    nav ul {
+        flex-direction: column; /* メニューを縦方向に */
+    }
+
+    nav ul li {
+        margin: 10px 0;
+    }
+}
