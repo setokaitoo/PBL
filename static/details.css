@@ -1,0 +1,64 @@
+/* 全体の背景と文字設定 */
+body {
+    background-color: #f9f9f9;
+    color: #333;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* 縦に配置 */
+    min-height: 100vh;
+    text-align: center;
+}
+
+/* タイトルのスタイル */
+h1 {
+    font-size: 28px;
+    color: #4CAF50;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+/* 店舗情報のスタイル */
+p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin: 10px 0;
+}
+
+/* 地図リンクのスタイル */
+a {
+    display: inline-block;
+    padding: 12px 20px;
+    margin-top: 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+a:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+/* スマートフォン対応 */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 24px;
+    }
+
+    p {
+        font-size: 16px;
+    }
+
+    a {
+        font-size: 16px;
+        padding: 10px 16px;
+    }
+}

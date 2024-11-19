@@ -1,0 +1,80 @@
+/* 全体の背景と文字設定 */
+body {
+    background-color: #f9f9f9;
+    color: #333;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* 縦に配置 */
+    min-height: 100vh;
+    position: relative; /* タイトル用 */
+    text-align: center;
+}
+
+/* タイトルのスタイル */
+h1 {
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    font-size: 28px;
+    color: #4CAF50;
+    margin: 0;
+    font-weight: bold;
+}
+
+/* 検索結果リストのスタイル */
+ul {
+    list-style-type: none; /* デフォルトのリストスタイルを削除 */
+    padding: 0;
+    margin: 40px 0 0 0;
+    width: 80%;
+    max-width: 600px;
+}
+
+li {
+    background-color: #ffffff;
+    margin: 10px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+li:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+a {
+    display: block;
+    padding: 15px 20px;
+    color: #333;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: #4CAF50;
+}
+
+/* スマートフォン対応 */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 24px;
+        top: 15px;
+        left: 20px;
+    }
+
+    a {
+        font-size: 16px;
+        padding: 12px 16px;
+    }
+
+    ul {
+        width: 90%;
+    }
+}

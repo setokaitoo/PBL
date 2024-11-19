@@ -1,0 +1,68 @@
+/* 全体の背景と文字設定 */
+body {
+    background-color: #f9f9f9;
+    color: #333;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* 縦に配置 */
+    height: 100vh;
+    position: relative; /* タイトル用 */
+    text-align: center;
+}
+
+/* タイトルのスタイル */
+h1 {
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    font-size: 28px;
+    color: #4CAF50;
+    margin: 0;
+    font-weight: bold;
+}
+
+/* 概要テキストのスタイル */
+p {
+    margin: 20px 0;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #555;
+}
+
+/* リンクボタンのスタイル */
+a {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+a:hover {
+    background-color: #45a049;
+}
+
+/* スマートフォン対応 */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 24px;
+        top: 15px;
+        left: 20px;
+    }
+
+    p {
+        font-size: 14px;
+    }
+
+    a {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+}

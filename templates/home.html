@@ -4,9 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ホーム</title>
-    <link rel ="stylesheet" href = "css/home.css">
+    <link rel ="stylesheet" href = "{{ url_for('static', filename='home.css') }}">
 </head>
 <body>
+    <header>
+        <div class="logo-container">
+            <img src="{{url_for('static', filename='logo.png')}}" alt="アプリのロゴ" class="logo">
     <h1>ホーム画面</h1>
     <nav>
         <ul>

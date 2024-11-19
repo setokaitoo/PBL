@@ -3,16 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>ログイン</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='adduser.css') }}">
 </head>
 <body>
     <h1>ログインページ</h1>
     <form method="post">
         <br>
-<<<<<<< HEAD
-        <label for="user_id">ユーザーID:</label>
-=======
         <label for="user_id">ユーザーID</label>
->>>>>>> 76ef3fd1ff03f49287f6bab20cd5cbee59033a7f
         <input type="text" id="user_id" name="user_id" required>
         <br>
         <label for="password">パスワード:</label>
@@ -20,12 +17,6 @@
         <button type="submit">登録</button>
     </form>
 
-    {% if error_message is not None %}
-    <ul>
-    {% for message in error_message %}
-    <li style="color:red">{{message}}</li>
-    {% endfor %}
-    </ul>
-    {% endif %}
+    
 </body>
 </html>
