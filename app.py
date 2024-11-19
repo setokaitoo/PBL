@@ -97,6 +97,8 @@ def mypage():
     username = request.args.get('username')
     user_id = request.args.get('user_id')
     return render_template('mypage.html', username=username, user_id=user_id)
+    
+   
 
 # 店舗検索結果画面
 @app.route('/result')
@@ -120,6 +122,38 @@ def details(store_id):
 @app.route('/map')
 def map():
     return render_template('map.html')
+
+#スケジュール投稿画面
+@app.route('/schedule', methods=['GET', 'POST'])
+def schedule():
+    if request.method == 'POST':
+        # フォームからデータを取得
+        time1 = datetime.strptime(request.form['time1'], '%Y-%m-%d %H:%M')
+        place1 = request.form['place1']
+        time2 = datetime.strptime(request.form['time2'], '%Y-%m-%d %H:%M')
+        place2 = request.form['place2']
+        time3 = datetime.strptime(request.form['time3'], '%Y-%m-%d %H:%M')
+        place3 = request.form['place3']
+        time4 = datetime.strptime(request.form['time4'], '%Y-%m-%d %H:%M')
+        place4 = request.form['place4']
+
+        # データを保存
+        new_post = Post(time1=time1, place1=place1, time2=time2, place2=place2, 
+                        time3=time3, place3=place3, time4=time4, place4=place4)
+        db.session.add(new_post)
+        db.session.commit()
+
+        # 投稿後にマイページにリダイレクト
+        return redirect(url_for('mypage'))
+    return render_template('schedule.html')
+
+#スケジュール一覧画面
+@app.route('/schedulelist')
+def schedule_list():
+    all_posts = Post.query.all()
+    return render_template('schedule_list.html', posts=all_posts)
+    
+
 
 
 if __name__ == '__main__':

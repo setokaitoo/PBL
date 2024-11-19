@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>スケジュール一覧</title>
+</head>
+<body>
+    <h1>スケジュール一覧</h1>
+    <ul>
+        {% for post in posts %}
+        <li>
+            <p>投稿者ID: {{ post.user_id }}</p>
+            <p>場所1: {{ post.place1 }} ({{ post.time1 }})</p>
+            <p>場所2: {{ post.place2 }} ({{ post.time2 }})</p>
+            <p>場所3: {{ post.place3 }} ({{ post.time3 }})</p>
+            <p>場所4: {{ post.place4 }} ({{ post.time4 }})</p>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
