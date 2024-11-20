@@ -57,7 +57,7 @@ def login():
     usert = User
     if request.method == 'POST':
         newpass = request.form['password']
-        user_id = request.form['user_id']
+        user_id = request.form['username']
         
         user = User.query.filter_by(id=user_id).first()
         if user is not None:
@@ -76,14 +76,18 @@ def adduser():
     if request.method == 'POST':
         newpass = request.form['password']
         mail = request.form['mail']
-<<<<<<< HEAD
-        newid = 8
-=======
-        newid = 6
->>>>>>> 7e7e7f0b7dbf47eb77695040ab66e0231eac4656
-        user = User(id=newid, mailaddress=mail, password=newpass)
-        db.session.add(user)
-        db.session.commit()
+        newid = request.form['id']
+        
+        user = User.query.filter_by(id=newid).first()
+        if user is not None:
+            return redirect('adduser')
+            
+        else:
+            user = User(id=newid, mailaddress=mail, password=newpass)
+            db.session.add(user)
+            db.session.commit()
+            return redirect('login')
+            
         
         return redirect(url_for('createuser', id=newid, mail=mail))
     return render_template('adduser.html')
@@ -100,7 +104,12 @@ def createuser():
 def mypage():
     username = request.args.get('username')
     user_id = request.args.get('user_id')
-    return render_template('mypage.html', username=username, user_id=user_id)
+    
+    # ログイン中のユーザーの投稿を取得
+    user_posts = Post.query.filter_by(user_id=user_id).order_by(Post.id.desc()).all()
+    return render_template('mypage.html', username=username, user_id=user_id, posts=user_posts)
+    
+    
     
    
 
@@ -150,13 +159,18 @@ def schedule():
         # 投稿後にマイページにリダイレクト
         return redirect(url_for('mypage'))
     return render_template('schedule.html')
-
+    
 #スケジュール一覧画面
 @app.route('/schedulelist')
-def schedule_list():
-    all_posts = Post.query.all()
-    return render_template('schedule_list.html', posts=all_posts)
+def schedulelist():
+    try:
+        # データベースからすべての投稿を取得
+        all_posts = Post.query.all()
+        return render_template('schedulelist.html', posts=all_posts)
+    except Exception as e:
+        return f"エラーが発生しました: {e}", 400
     
+
 
 
 
