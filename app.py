@@ -20,7 +20,7 @@ login_manager.login_view = 'login'
 
 class User(db.Model, UserMixin):
     __tablename__ = 'user'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.String(255), primary_key=True)
     mailaddress = db.Column(db.String(255), nullable=False)
     password = db.Column(db.String(50), nullable=False)
     #def check_password(self, password):
@@ -76,7 +76,7 @@ def adduser():
     if request.method == 'POST':
         newpass = request.form['password']
         mail = request.form['mail']
-        newid = 4
+        newid = 6
         user = User(id=newid, mailaddress=mail, password=newpass)
         db.session.add(user)
         db.session.commit()
