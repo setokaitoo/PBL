@@ -2,15 +2,15 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>マイページ</title>
+    <title>Mypage</title>
     <link rel="stylesheet", href="{{ url_for('static', filename='mypage.css')}}">
 </head>
 <body>
-    <h1>マイページ</h1>
+    <h1>投稿</h1>
     <p>ユーザー名: {{ username }}</p>
     <p>ユーザーID: {{ user_id }}</p>
 
-    <h1>マイページ</h1>
+    
     <a href="/schedule">新しいスケジュールを投稿する</a>
     <h2>投稿したスケジュール一覧</h2>
     <ul>
