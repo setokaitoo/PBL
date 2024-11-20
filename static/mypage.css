@@ -7,12 +7,14 @@ body {
     padding: 0;
 }
 
-/* ヘッダー部分（ユーザー情報を左上に配置） */
+/*タイトル（h1）のスタイル */
 h1:first-of-type {
-    font-size: 28px;
+    font-size: 36px; /* サイズをさらに大きく */
     color: #4CAF50;
     font-weight: bold;
-    margin: 10px 20px 0;
+    margin: 10px 20px 20px;
+    border-bottom: 2px solid #4CAF50; /* タイトルを引き立てる下線を追加 */
+    padding-bottom: 10px; /* 下線との間隔を調整 */
 }
 
 /* ユーザー情報 */
@@ -23,7 +25,7 @@ p {
 
 /* メインコンテンツ */
 h2 {
-    font-size: 30px;
+    font-size: 24px;
     margin: 30px 20px 10px;
     color: #333;
     border-bottom: 2px solid #4CAF50;
@@ -94,4 +96,42 @@ p {
         font-size: 14px;
         padding: 10px 16px;
     }
+}
+/* 投稿詳細セクションのスタイル */
+.post-details {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.post-details h2 {
+    font-size: 28px;
+    color: #4CAF50;
+    margin-bottom: 15px;
+}
+
+.post-details ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.post-details li {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.back-link {
+    display: block;
+    margin-top: 20px;
+    font-size: 16px;
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+.back-link:hover {
+    text-decoration: underline;
 }

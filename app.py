@@ -76,11 +76,7 @@ def adduser():
     if request.method == 'POST':
         newpass = request.form['password']
         mail = request.form['mail']
-<<<<<<< HEAD
-        newid = 8
-=======
         newid = 6
->>>>>>> 7e7e7f0b7dbf47eb77695040ab66e0231eac4656
         user = User(id=newid, mailaddress=mail, password=newpass)
         db.session.add(user)
         db.session.commit()
@@ -156,6 +152,13 @@ def schedule():
 def schedule_list():
     all_posts = Post.query.all()
     return render_template('schedule_list.html', posts=all_posts)
+
+@app.route('/mypagepost/<int:post_id>')
+def mypagepost(post_id):
+    # 投稿データを取得 (例: データベースから取得)
+    post = Post.query.get_or_404(post_id)
+    username = current_user.username  # ユーザー名を取得
+    return render_template('mypagepost.html', post=post, username=username)
     
 
 

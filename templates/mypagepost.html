@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>投稿詳細</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='mypage.css') }}">
+</head>
+<body>
+    <header>
+        <h1>投稿詳細</h1>
+    </header>
+    <main>
+        <section class="post-details">
+            <h2>スケジュール {{ post.id }}</h2>
+            <p><strong>投稿者:</strong> {{ username }}</p>
+            <ul>
+                <li><strong>ステップ1:</strong> {{ post.time1 }} - {{ post.place1 }}</li>
+                <li><strong>ステップ2:</strong> {{ post.time2 }} - {{ post.place2 }}</li>
+                <li><strong>ステップ3:</strong> {{ post.time3 }} - {{ post.place3 }}</li>
+                <li><strong>ステップ4:</strong> {{ post.time4 }} - {{ post.place4 }}</li>
+            </ul>
+            <p><strong>投稿日時:</strong> {{ post.timestamp }}</p>
+            <a href="{{ url_for('mypage') }}" class="back-link">← マイページに戻る</a>
+        </section>
+    </main>
+</body>
+</html>
