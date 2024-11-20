@@ -76,7 +76,7 @@ def adduser():
     if request.method == 'POST':
         newpass = request.form['password']
         mail = request.form['mail']
-        newid = 8
+        newid = 4
         user = User(id=newid, mailaddress=mail, password=newpass)
         db.session.add(user)
         db.session.commit()
