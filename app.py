@@ -57,7 +57,7 @@ def login():
     usert = User
     if request.method == 'POST':
         newpass = request.form['password']
-        user_id = request.form['user_id']
+        user_id = request.form['username']
         
         user = User.query.filter_by(id=user_id).first()
         if user is not None:
@@ -76,14 +76,18 @@ def adduser():
     if request.method == 'POST':
         newpass = request.form['password']
         mail = request.form['mail']
-<<<<<<< HEAD
-        newid = 8
-=======
-        newid = 6
->>>>>>> 7e7e7f0b7dbf47eb77695040ab66e0231eac4656
-        user = User(id=newid, mailaddress=mail, password=newpass)
-        db.session.add(user)
-        db.session.commit()
+        newid = request.form['id']
+        
+        user = User.query.filter_by(id=newid).first()
+        if user is not None:
+            return redirect('adduser')
+            
+        else:
+            user = User(id=newid, mailaddress=mail, password=newpass)
+            db.session.add(user)
+            db.session.commit()
+            return redirect('login')
+            
         
         return redirect(url_for('createuser', id=newid, mail=mail))
     return render_template('adduser.html')
