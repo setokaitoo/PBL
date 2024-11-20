@@ -104,7 +104,12 @@ def createuser():
 def mypage():
     username = request.args.get('username')
     user_id = request.args.get('user_id')
-    return render_template('mypage.html', username=username, user_id=user_id)
+    
+    # ログイン中のユーザーの投稿を取得
+    user_posts = Post.query.filter_by(user_id=user_id).order_by(Post.id.desc()).all()
+    return render_template('mypage.html', username=username, user_id=user_id, posts=user_posts)
+    
+    
     
    
 
@@ -154,20 +159,18 @@ def schedule():
         # 投稿後にマイページにリダイレクト
         return redirect(url_for('mypage'))
     return render_template('schedule.html')
-
+    
 #スケジュール一覧画面
 @app.route('/schedulelist')
-def schedule_list():
-    all_posts = Post.query.all()
-    return render_template('schedule_list.html', posts=all_posts)
-
-@app.route('/mypagepost/<int:post_id>')
-def mypagepost(post_id):
-    # 投稿データを取得 (例: データベースから取得)
-    post = Post.query.get_or_404(post_id)
-    username = current_user.username  # ユーザー名を取得
-    return render_template('mypagepost.html', post=post, username=username)
+def schedulelist():
+    try:
+        # データベースからすべての投稿を取得
+        all_posts = Post.query.all()
+        return render_template('schedulelist.html', posts=all_posts)
+    except Exception as e:
+        return f"エラーが発生しました: {e}", 400
     
+
 
 
 

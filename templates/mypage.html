@@ -1,28 +1,33 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>Mypage</title>
-    <link rel="stylesheet", href="{{ url_for('static', filename='mypage.css')}}">
-</head>
-<body>
-    <h1>Mypage</h1>
-    <p>ユーザー名: {{ username }}</p>
-    <p>ユーザーID: {{ user_id }}</p>
+    <header>
+        <h1>マイページ</h1>
+        <div class="user-info">
+            <p>ユーザー名: {{ username }}</p>
+            <p>ユーザーID: {{ user_id }}</p>
+        </div>
+    </header>
 
-    <h1>Post</h1>
-    <a href="/schedule">新しいスケジュールを投稿する</a>
-    <h2>投稿したスケジュール一覧</h2>
-    <ul>
-        {% for post in posts %}
-            <li>
-                <h3>スケジュール {{ post.id }}</h3>
-                <p>ステップ1: {{ post.time1 }} - {{ post.place1 }}</p>
-                <p>ステップ2: {{ post.time2 }} - {{ post.place2 }}</p>
-                <p>ステップ3: {{ post.time3 }} - {{ post.place3 }}</p>
-                <p>ステップ4: {{ post.time4 }} - {{ post.place4 }}</p>
-            </li>
-        {% endfor %}
-    </ul>
+    <main>
+        <a href="/schedule">新しいスケジュールを投稿する</a>
+        <section class="post-list">
+            <h2>投稿したスケジュール一覧</h2>
+            <div class="scrollable">
+                <ul>
+                    {% for post in posts %}
+                    <li class="post-item">
+                        <h3>スケジュール {{ post.id }}</h3>
+                        <p>ステップ1: {{ post.time1 }} - {{ post.place1 }}</p>
+                        <p>ステップ2: {{ post.time2 }} - {{ post.place2 }}</p>
+                        <p>ステップ3: {{ post.time3 }} - {{ post.place3 }}</p>
+                        <p>ステップ4: {{ post.time4 }} - {{ post.place4 }}</p>
+                    </li>
+                    {% else %}
+                    <p>投稿がありません。</p>
+                    {% endfor %}
+                </ul>
+            </div>
+        </section>
+    </main>
 </body>
 </html>
