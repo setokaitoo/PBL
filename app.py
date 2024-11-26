@@ -41,7 +41,7 @@ class User(db.Model, UserMixin):
     #    return check_password_hash(self.password_hash, password)
     
 class Post(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.String(255), primary_key=True)
     time1 = db.Column(db.DateTime, nullable=False)
     place1 = db.Column(db.String(255), nullable=False)
     time2 = db.Column(db.DateTime, nullable=False)
@@ -73,18 +73,18 @@ def login():
     usert = User
     if request.method == 'POST':
         newpass = request.form['password']
-        user_id = request.form['username']
-        
+        user_id = request.form['user_id']      
         user = User.query.filter_by(id=user_id).first()
         if user is not None:
             user = User.query.filter_by(password=newpass).first()
             if user is not None:
-                return redirect('mypage')           
+                return redirect(url_for('mypage',user_id=user_id))           
             else:
                 return redirect('login')
-        
-        return redirect('login')
-    return render_template('login.html')
+        else:
+            return redirect('login')
+    elif request.method == 'GET':
+        return render_template('login.html')
 
 #新規登録画面
 @app.route('/adduser', methods=['GET', 'POST'])
@@ -120,16 +120,11 @@ def createuser():
 # マイページ画面
 @app.route('/mypage')
 def mypage():
-    username = request.args.get('username')
     user_id = request.args.get('user_id')
     
     # ログイン中のユーザーの投稿を取得
     user_posts = Post.query.filter_by(user_id=user_id).order_by(Post.id.desc()).all()
-    return render_template('mypage.html', username=username, user_id=user_id, posts=user_posts)
-    
-    
-    
-   
+    return render_template('mypage.html', user_id=user_id, posts=user_posts)
 
 # 店舗検索結果画面
 @app.route('/result')
