@@ -1,14 +1,19 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
     <title>ジャンル検索</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='search.css') }}">
 </head>
 <body>
-    <h1>ジャンル検索ページ</h1>
-    <p>店舗を検索するためのページです。</p>
-    <a href="/result">検索結果を見る</a>
+    <h1>ジャンル検索</h1>
+    <form action="{{ url_for('result') }}" method="GET">
+        <label for="category">食べたいもの:</label>
+        <select name="category" id="category">
+            <option value="軽食">軽食</option>
+            <option value="がっつり">がっつり</option>
+            <option value="甘いもの">甘いもの</option>
+        </select>
+        <button type="submit">検索</button>
+    </form>
 </body>
 </html>
