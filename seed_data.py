@@ -19,7 +19,11 @@ def seed_data():
                   location="https://maps.google.com/?q=レストランB"),
             Store(name="スイーツC", category="甘いもの", 
                   homepage="https://example.com/sweets_c",
-                  location="https://maps.google.com/?q=スイーツC")
+                  location="https://maps.google.com/?q=スイーツC"),
+            Store(name="CAFF工房MISUZU×食品倉庫 室蘭店",category="甘いもの",
+                  homepage="https://www.misuzucoffee.com/",
+                  location="https://www.google.com/maps/d/edit?mid=1qOVBnvYFo92NqgpxxWFQ7HffDQb8iUo&ll=42.349110400417466%2C141.01611710999043&z=17")
+            
         ]
 
         # データベースにデータを追加
