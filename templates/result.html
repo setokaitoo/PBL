@@ -2,15 +2,28 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>検索結果</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='result.css')}}">
 </head>
 <body>
-    <h1>検索結果ページ</h1>
-    <ul>
-        {% for store in stores %}
-            <li><a href="{{ url_for('details', store_id=store.id) }}">{{ store.name }}</a></li>
-        {% endfor %}
-    </ul>
+    <h1>検索結果</h1>
+    {% if stores %}
+        <ul>
+            {% for store in stores %}
+                <li>
+                    <h2>{{ store.name }}</h2>
+                    <p>カテゴリー: {{ store.category }}</p>
+                    <p>
+                        <a href="{{ store.homepage }}" target="_blank">ホームページ</a>
+                    </p>
+                    <p>
+                        <a href="{{ store.location }}" target="_blank">Googleマップで場所を見る</a>
+                    </p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>該当する店舗が見つかりませんでした。</p>
+    {% endif %}
 </body>
 </html>

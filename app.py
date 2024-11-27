@@ -9,10 +9,24 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from sqlalchemy import create_engine
 from sqlalchemy import Column, Integer, String, ForeignKey, PrimaryKeyConstraint
 from sqlalchemy.ext.declarative import declarative_base
+from models import db, Store
  
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///muroran.db'
-db = SQLAlchemy(app)
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# dbのインスタンスを作成し、アプリに関連付け
+#db = SQLAlchemy()
+
+# アプリケーションに db を関連付ける
+db.init_app(app)
+
+#db = SQLAlchemy(app)
+
+@app.before_request
+def setup():
+    with app.app_context():
+        db.create_all()
 
 uid = ''
 
@@ -22,6 +36,11 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 #未ログインユーザーを転送する 
 login_manager.login_view = 'login'
+
+# 初回リクエスト時にテーブルを作成
+@app.before_request
+def setup():
+    db.create_all()
 
 class User(db.Model, UserMixin):
     __tablename__ = 'user'
@@ -44,6 +63,8 @@ class Post(db.Model):
     place4 = db.Column(db.String(255), nullable=False)
     # 複合主キーを定義
     __table_args__ = (PrimaryKeyConstraint(id, post_name),)
+    
+
     
 @login_manager.user_loader
 def load_user(user_id):
@@ -82,6 +103,8 @@ def login():
 #新規登録画面
 @app.route('/adduser', methods=['GET', 'POST'])
 def adduser():
+    
+    
     if request.method == 'POST':
         newpass = request.form['password']
         mail = request.form['mail']
@@ -120,12 +143,11 @@ def mypage():
 # 店舗検索結果画面
 @app.route('/result')
 def result():
-    # 店舗リストを仮に定義
-    stores = [
-        {'name': 'カフェ A', 'id': 1},
-        {'name': 'レストラン B', 'id': 2},
-        {'name': '書店 C', 'id': 3},
-    ]
+    category = request.args.get('category')
+    # データベースから該当するお店を検索
+    
+    stores = Store.query.filter_by(category=category).all()
+
     return render_template('result.html', stores=stores)
 
 # 店舗詳細画面
