@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import pytz
@@ -9,11 +9,14 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from sqlalchemy import create_engine
 from sqlalchemy import Column, Integer, String, ForeignKey, PrimaryKeyConstraint
 from sqlalchemy.ext.declarative import declarative_base
-from models import db,Store, app
- 
+from models import db, Store
+import os 
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///muroran.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+app.secret_key = os.urandom(24)
 
 # dbのインスタンスを作成し、アプリに関連付け
 #db = SQLAlchemy()
@@ -21,19 +24,12 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # アプリケーションに db を関連付ける
 db.init_app(app)
 
-
-
 #db = SQLAlchemy(app)
 
-# アプリ起動時にデータベースを初期化
-#@app.before_first_request
-#def setup():
-    #initialize_db()
-
-#@app.before_request
-#def setup():
-with app.app_context():
-    db.create_all()
+@app.before_request
+def setup():
+    with app.app_context():
+        db.create_all()
 
 uid = ''
 
@@ -59,7 +55,7 @@ class User(db.Model, UserMixin):
     
 class Post(db.Model):
     id = db.Column(db.String(255), primary_key=True)
-    post_name = db.Column(db.String(255), unique=True)
+    post_name = db.Column(db.String(255))
     time1 = db.Column(db.DateTime, nullable=False)
     place1 = db.Column(db.String(255), nullable=False)
     time2 = db.Column(db.DateTime, nullable=True)
@@ -97,7 +93,7 @@ def search():
 # ログイン画面とユーザー登録処理
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    usert = User
+    global uid
     if request.method == 'POST':
         newpass = request.form['password']
         user_id = request.form['user_id']      
@@ -105,21 +101,20 @@ def login():
         if user is not None:
             user = User.query.filter_by(password=newpass).first()
             if user is not None:
-                global uid
                 uid = user_id
-                return redirect(url_for('mypage',user_id=user_id))           
+                return redirect(url_for('mypage'))           
             else:
-                return redirect('login')
+                flash('パスワードが間違っています。再度入力してください。')
+                return redirect(url_for('login'))
         else:
-            return redirect('login')
+            flash('このユーザーIDは存在しません。再度入力してください。')
+            return redirect(url_for('login'))
     elif request.method == 'GET':
         return render_template('login.html')
 
 #新規登録画面
 @app.route('/adduser', methods=['GET', 'POST'])
 def adduser():
-    
-    
     if request.method == 'POST':
         newpass = request.form['password']
         mail = request.form['mail']
@@ -127,16 +122,19 @@ def adduser():
         
         user = User.query.filter_by(id=newid).first()
         if user is not None:
-            return redirect('adduser')
+            flash('このユーザーIDは既に使用されています。')
+            return redirect(url_for('adduser'))#再度登録画面へ
+           
+            
             
         else:
             user = User(id=newid, mailaddress=mail, password=newpass)
             db.session.add(user)
             db.session.commit()
-            return redirect('login')
+            return redirect(url_for('login'))
             
         
-        return redirect(url_for('createuser', id=newid, mail=mail))
+        #return redirect(url_for('createuser', id=newid, mail=mail))
     return render_template('adduser.html')
 
 #新規登録結果画面
@@ -159,16 +157,14 @@ def mypage():
 @app.route('/result')
 def result():
     category = request.args.get('category')
-    print(f"検索カテゴリー: {category}")  # デバッグ用出力
-
-    # カテゴリーに該当する店舗を取得
+    # データベースから該当するお店を検索
+    
     stores = Store.query.filter_by(category=category).all()
-    print(f"検索結果: {stores}")  # デバッグ用出力
 
     return render_template('result.html', stores=stores)
+
 # 店舗詳細画面
 @app.route('/details/<int:store_id>')
-
 def details(store_id):
     # 店舗情報を仮に定義
     store_details = {'id': store_id, 'name': f'店舗 {store_id}', 'description': '詳細情報'}
@@ -182,10 +178,9 @@ def map():
 #スケジュール投稿画面
 @app.route('/schedule', methods=['GET', 'POST'])
 def schedule():
-    global uid
     if request.method == 'POST':
         # フォームからデータを取得
-        title = request.form['name']
+        title = request.form['post_title']
         time1 = datetime.strptime(request.form['time1'], '%Y-%m-%dT%H:%M')
         place1 = request.form['place1']
         
