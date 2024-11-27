@@ -9,7 +9,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from sqlalchemy import create_engine
 from sqlalchemy import Column, Integer, String, ForeignKey, PrimaryKeyConstraint
 from sqlalchemy.ext.declarative import declarative_base
-from models import db, Store, app
+from models import db,Store, app
  
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///muroran.db'
@@ -71,12 +71,12 @@ class Post(db.Model):
     # 複合主キーを定義
     __table_args__ = (PrimaryKeyConstraint(id, post_name),)
     
-class Store(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), nullable=False)
-    category = db.Column(db.String(50), nullable=False)
-    homepage = db.Column(db.String(255), nullable=True)  # ホームページURL
-    location = db.Column(db.String(255), nullable=True)  # 住所や地図リンク
+#class Store(db.Model):
+    #id = db.Column(db.Integer, primary_key=True)
+    #name = db.Column(db.String(80), nullable=False)
+    #category = db.Column(db.String(50), nullable=False)
+    #homepage = db.Column(db.String(255), nullable=True)  # ホームページURL
+    #location = db.Column(db.String(255), nullable=True)  # 住所や地図リンク
     
 
     
