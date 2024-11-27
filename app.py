@@ -9,7 +9,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from sqlalchemy import create_engine
 from sqlalchemy import Column, Integer, String, ForeignKey, PrimaryKeyConstraint
 from sqlalchemy.ext.declarative import declarative_base
-from models import db, Store
+from models import db, Store, app
  
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///muroran.db'
@@ -21,12 +21,19 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # アプリケーションに db を関連付ける
 db.init_app(app)
 
+
+
 #db = SQLAlchemy(app)
 
-@app.before_request
-def setup():
-    with app.app_context():
-        db.create_all()
+# アプリ起動時にデータベースを初期化
+#@app.before_first_request
+#def setup():
+    #initialize_db()
+
+#@app.before_request
+#def setup():
+with app.app_context():
+    db.create_all()
 
 uid = ''
 
@@ -63,6 +70,13 @@ class Post(db.Model):
     place4 = db.Column(db.String(255), nullable=False)
     # 複合主キーを定義
     __table_args__ = (PrimaryKeyConstraint(id, post_name),)
+    
+class Store(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), nullable=False)
+    category = db.Column(db.String(50), nullable=False)
+    homepage = db.Column(db.String(255), nullable=True)  # ホームページURL
+    location = db.Column(db.String(255), nullable=True)  # 住所や地図リンク
     
 
     
@@ -144,14 +158,16 @@ def mypage():
 @app.route('/result')
 def result():
     category = request.args.get('category')
-    # データベースから該当するお店を検索
-    
+    print(f"検索カテゴリー: {category}")  # デバッグ用出力
+
+    # カテゴリーに該当する店舗を取得
     stores = Store.query.filter_by(category=category).all()
+    print(f"検索結果: {stores}")  # デバッグ用出力
 
     return render_template('result.html', stores=stores)
-
 # 店舗詳細画面
 @app.route('/details/<int:store_id>')
+
 def details(store_id):
     # 店舗情報を仮に定義
     store_details = {'id': store_id, 'name': f'店舗 {store_id}', 'description': '詳細情報'}
