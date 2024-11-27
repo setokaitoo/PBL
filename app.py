@@ -93,7 +93,7 @@ def search():
 # ログイン画面とユーザー登録処理
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    usert = User
+    global uid
     if request.method == 'POST':
         newpass = request.form['password']
         user_id = request.form['user_id']      
@@ -102,7 +102,7 @@ def login():
             user = User.query.filter_by(password=newpass).first()
             if user is not None:
                 uid = user_id
-                return redirect(url_for('mypage',user_id=user_id))           
+                return redirect(url_for('mypage'))           
             else:
                 flash('パスワードが間違っています。再度入力してください。')
                 return redirect(url_for('login'))
@@ -147,11 +147,11 @@ def createuser():
 # マイページ画面
 @app.route('/mypage')
 def mypage():
-    user_id = request.args.get('user_id')
+    global uid
     
     # ログイン中のユーザーの投稿を取得
-    user_posts = Post.query.filter_by(id=user_id).order_by(Post.id.desc()).all()
-    return render_template('mypage.html', user_id=user_id, posts=user_posts)
+    user_posts = Post.query.filter_by(id=uid).order_by(Post.id.desc()).all()
+    return render_template('mypage.html', user_id=uid, posts=user_posts)
 
 # 店舗検索結果画面
 @app.route('/result')
@@ -180,7 +180,7 @@ def map():
 def schedule():
     if request.method == 'POST':
         # フォームからデータを取得
-        title = request.args.get('post_title')
+        title = request.form['post_title']
         time1 = datetime.strptime(request.form['time1'], '%Y-%m-%dT%H:%M')
         place1 = request.form['place1']
         
