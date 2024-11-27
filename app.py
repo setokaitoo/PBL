@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import pytz
@@ -10,10 +10,13 @@ from sqlalchemy import create_engine
 from sqlalchemy import Column, Integer, String, ForeignKey, PrimaryKeyConstraint
 from sqlalchemy.ext.declarative import declarative_base
 from models import db, Store
- 
+import os 
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///muroran.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+app.secret_key = os.urandom(24)
 
 # dbのインスタンスを作成し、アプリに関連付け
 #db = SQLAlchemy()
@@ -94,17 +97,17 @@ def login():
                 uid = user_id
                 return redirect(url_for('mypage',user_id=user_id))           
             else:
-                return redirect('login')
+                flash('パスワードが間違っています。再度入力してください。')
+                return redirect(url_for('login'))
         else:
-            return redirect('login')
+            flash('このユーザーIDは存在しません。再度入力してください。')
+            return redirect(url_for('login'))
     elif request.method == 'GET':
         return render_template('login.html')
 
 #新規登録画面
 @app.route('/adduser', methods=['GET', 'POST'])
 def adduser():
-    
-    
     if request.method == 'POST':
         newpass = request.form['password']
         mail = request.form['mail']
@@ -112,16 +115,19 @@ def adduser():
         
         user = User.query.filter_by(id=newid).first()
         if user is not None:
-            return redirect('adduser')
+            flash('このユーザーIDは既に使用されています。')
+            return redirect(url_for('adduser'))#再度登録画面へ
+           
+            
             
         else:
             user = User(id=newid, mailaddress=mail, password=newpass)
             db.session.add(user)
             db.session.commit()
-            return redirect('login')
+            return redirect(url_for('login'))
             
         
-        return redirect(url_for('createuser', id=newid, mail=mail))
+        #return redirect(url_for('createuser', id=newid, mail=mail))
     return render_template('adduser.html')
 
 #新規登録結果画面
@@ -222,4 +228,4 @@ def schedulelist():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
