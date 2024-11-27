@@ -13,9 +13,10 @@
             <h2>投稿したスケジュール一覧</h2>
             <div class="scrollable">
                 <ul>
+                <br>
                     {% for post in posts %}
                     <li class="post-item">
-                        <h3>スケジュール {{ post.id }}</h3>
+                        <h3>スケジュール {{ post.post_name }}</h3>
                         <p>ステップ1: {{ post.time1 }} - {{ post.place1 }}</p>
                         <p>ステップ2: {{ post.time2 }} - {{ post.place2 }}</p>
                         <p>ステップ3: {{ post.time3 }} - {{ post.place3 }}</p>

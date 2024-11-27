@@ -59,15 +59,15 @@ class User(db.Model, UserMixin):
     
 class Post(db.Model):
     id = db.Column(db.String(255), primary_key=True)
-    post_name = db.Column(db.String(255))
+    post_name = db.Column(db.String(255), unique=True)
     time1 = db.Column(db.DateTime, nullable=False)
     place1 = db.Column(db.String(255), nullable=False)
-    time2 = db.Column(db.DateTime, nullable=False)
-    place2 = db.Column(db.String(255), nullable=False)
-    time3 = db.Column(db.DateTime, nullable=False)
-    place3 = db.Column(db.String(255), nullable=False)
-    time4 = db.Column(db.DateTime, nullable=False)
-    place4 = db.Column(db.String(255), nullable=False)
+    time2 = db.Column(db.DateTime, nullable=True)
+    place2 = db.Column(db.String(255), nullable=True)
+    time3 = db.Column(db.DateTime, nullable=True)
+    place3 = db.Column(db.String(255), nullable=True)
+    time4 = db.Column(db.DateTime, nullable=True)
+    place4 = db.Column(db.String(255), nullable=True)
     # 複合主キーを定義
     __table_args__ = (PrimaryKeyConstraint(id, post_name),)
     
@@ -105,6 +105,7 @@ def login():
         if user is not None:
             user = User.query.filter_by(password=newpass).first()
             if user is not None:
+                global uid
                 uid = user_id
                 return redirect(url_for('mypage',user_id=user_id))           
             else:
@@ -148,11 +149,11 @@ def createuser():
 # マイページ画面
 @app.route('/mypage')
 def mypage():
-    user_id = request.args.get('user_id')
+    global uid
     
     # ログイン中のユーザーの投稿を取得
-    user_posts = Post.query.filter_by(id=user_id).order_by(Post.id.desc()).all()
-    return render_template('mypage.html', user_id=user_id, posts=user_posts)
+    user_posts = Post.query.filter_by(id=uid).order_by(Post.id.desc()).all()
+    return render_template('mypage.html', user_id=uid, posts=user_posts)
 
 # 店舗検索結果画面
 @app.route('/result')
@@ -181,9 +182,10 @@ def map():
 #スケジュール投稿画面
 @app.route('/schedule', methods=['GET', 'POST'])
 def schedule():
+    global uid
     if request.method == 'POST':
         # フォームからデータを取得
-        title = request.args.get('post_title')
+        title = request.form['name']
         time1 = datetime.strptime(request.form['time1'], '%Y-%m-%dT%H:%M')
         place1 = request.form['place1']
         
