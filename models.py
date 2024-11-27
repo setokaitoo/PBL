@@ -1,11 +1,10 @@
 from flask_sqlalchemy import SQLAlchemy
 
-# SQLAlchemyのインスタンスを初期化
 db = SQLAlchemy()
 
-# Storeモデルの定義
 class Store(db.Model):
-    __tablename__ = 'store'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50))
-    category = db.Column(db.String(50))
+    name = db.Column(db.String(80), nullable=False)
+    category = db.Column(db.String(50), nullable=False)
+    homepage = db.Column(db.String(255), nullable=True)  # ホームページURL
+    location = db.Column(db.String(255), nullable=True)  # 住所や地図リンク

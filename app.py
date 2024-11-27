@@ -10,15 +10,20 @@ from models import db, Store
  
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///muroran.db'
-#app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # dbのインスタンスを作成し、アプリに関連付け
-db = SQLAlchemy()
+#db = SQLAlchemy()
 
 # アプリケーションに db を関連付ける
 db.init_app(app)
 
 #db = SQLAlchemy(app)
+
+@app.before_request
+def setup():
+    with app.app_context():
+        db.create_all()
 
 #インスタンス化
 login_manager = LoginManager()
@@ -131,7 +136,9 @@ def mypage():
 def result():
     category = request.args.get('category')
     # データベースから該当するお店を検索
+    
     stores = Store.query.filter_by(category=category).all()
+
     return render_template('result.html', stores=stores)
 
 # 店舗詳細画面
