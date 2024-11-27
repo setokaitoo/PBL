@@ -7,6 +7,10 @@
 <body>
     <h1>旅行スケジュール投稿</h1>
     <form action="/schedule" method="POST">
+        <h3>投稿タイトル</h3>
+        <label for="post_title">投稿タイトル</label>
+        <input type="text" id="post_title" name="post_title" required>
+
         <h3>ステップ1</h3>
         <label for="time1">時間:</label>
         <input type="datetime-local" id="time1" name="time1" required>
@@ -15,21 +19,21 @@
 
         <h3>ステップ2</h3>
         <label for="time2">時間:</label>
-        <input type="datetime-local" id="time2" name="time2" required>
+        <input type="datetime-local" id="time2" name="time2">
         <label for="place2">場所:</label>
-        <input type="text" id="place2" name="place2" required>
+        <input type="text" id="place2" name="place2">
 
         <h3>ステップ3</h3>
         <label for="time3">時間:</label>
-        <input type="datetime-local" id="time3" name="time3" required>
+        <input type="datetime-local" id="time3" name="time3">
         <label for="place3">場所:</label>
-        <input type="text" id="place3" name="place3" required>
+        <input type="text" id="place3" name="place3">
 
         <h3>ステップ4</h3>
         <label for="time4">時間:</label>
-        <input type="datetime-local" id="time4" name="time4" required>
+        <input type="datetime-local" id="time4" name="time4">
         <label for="place4">場所:</label>
-        <input type="text" id="place4" name="place4" required>
+        <input type="text" id="place4" name="place4">
 
         <button type="submit">投稿する</button>
     </form>

@@ -6,10 +6,15 @@ import pytz
 import random, string
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 from werkzeug.security import check_password_hash, generate_password_hash
+from sqlalchemy import create_engine
+from sqlalchemy import Column, Integer, String, ForeignKey, PrimaryKeyConstraint
+from sqlalchemy.ext.declarative import declarative_base
  
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///muroran.db'
 db = SQLAlchemy(app)
+
+uid = ''
 
 #インスタンス化
 login_manager = LoginManager()
@@ -28,6 +33,7 @@ class User(db.Model, UserMixin):
     
 class Post(db.Model):
     id = db.Column(db.String(255), primary_key=True)
+    post_name = db.Column(db.String(255))
     time1 = db.Column(db.DateTime, nullable=False)
     place1 = db.Column(db.String(255), nullable=False)
     time2 = db.Column(db.DateTime, nullable=False)
@@ -36,6 +42,8 @@ class Post(db.Model):
     place3 = db.Column(db.String(255), nullable=False)
     time4 = db.Column(db.DateTime, nullable=False)
     place4 = db.Column(db.String(255), nullable=False)
+    # 複合主キーを定義
+    __table_args__ = (PrimaryKeyConstraint(id, post_name),)
     
 @login_manager.user_loader
 def load_user(user_id):
@@ -62,6 +70,7 @@ def login():
         if user is not None:
             user = User.query.filter_by(password=newpass).first()
             if user is not None:
+                uid = user_id
                 return redirect(url_for('mypage',user_id=user_id))           
             else:
                 return redirect('login')
@@ -105,7 +114,7 @@ def mypage():
     user_id = request.args.get('user_id')
     
     # ログイン中のユーザーの投稿を取得
-    user_posts = Post.query.filter_by(user_id=user_id).order_by(Post.id.desc()).all()
+    user_posts = Post.query.filter_by(id=user_id).order_by(Post.id.desc()).all()
     return render_template('mypage.html', user_id=user_id, posts=user_posts)
 
 # 店舗検索結果画面
@@ -136,24 +145,45 @@ def map():
 def schedule():
     if request.method == 'POST':
         # フォームからデータを取得
-        time1 = datetime.strptime(request.form['time1'], '%Y-%m-%d %H:%M')
+        title = request.args.get('post_title')
+        time1 = datetime.strptime(request.form['time1'], '%Y-%m-%dT%H:%M')
         place1 = request.form['place1']
-        time2 = datetime.strptime(request.form['time2'], '%Y-%m-%d %H:%M')
-        place2 = request.form['place2']
-        time3 = datetime.strptime(request.form['time3'], '%Y-%m-%d %H:%M')
-        place3 = request.form['place3']
-        time4 = datetime.strptime(request.form['time4'], '%Y-%m-%d %H:%M')
-        place4 = request.form['place4']
+        
+        if request.form['time2'] != '':
+            time2 = datetime.strptime(request.form['time2'], '%Y-%m-%dT%H:%M')
+            place2 = request.form['place2']
+        else:
+            time2 = None
+            place2 = None
+            
+        if request.form['time3'] != '':
+            time3 = datetime.strptime(request.form['time3'], '%Y-%m-%d %H:%M')
+            place3 = request.form['place3']
+        else:
+            time3 = None
+            place3 = None
+            
+        if request.form['time4'] != '':
+            time4 = datetime.strptime(request.form['time4'], '%Y-%m-%d %H:%M')
+            place4 = request.form['place4']
+        else:
+            time4 = None
+            place4 = None
 
+        post = Post.query.filter_by(id=uid, post_name=title).first()
+        
+        if post is not None:
+            return render_template('schedule.html',id=id)
         # データを保存
-        new_post = Post(time1=time1, place1=place1, time2=time2, place2=place2, 
+        new_post = Post(id=uid, post_name=title, time1=time1, place1=place1, time2=time2, place2=place2, 
                         time3=time3, place3=place3, time4=time4, place4=place4)
         db.session.add(new_post)
         db.session.commit()
 
         # 投稿後にマイページにリダイレクト
         return redirect(url_for('mypage'))
-    return render_template('schedule.html')
+    if request.method == 'GET':
+        return render_template('schedule.html')
     
 #スケジュール一覧画面
 @app.route('/schedulelist')
