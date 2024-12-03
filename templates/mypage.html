@@ -5,6 +5,7 @@
         <div class="user-info">
             <p>ユーザーID: {{ user_id }}</p>
         </div>
+        <link rel="stylesheet" href="{{ url_for('static', filename='/mypage.css') }}">
     </header>
 
     <main>
@@ -28,5 +29,7 @@
             </div>
         </section>
     </main>
+    <!-- ホームに戻るボタン -->
+    <a href="{{ url_for('home') }}" class="back-button">ホームに戻る</a>
 </body>
 </html>

@@ -1,137 +1,161 @@
 /* 全体のスタイル */
 body {
-    background-color: #f9f9f9;
-    color: #333;
-    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-}
-
-/*タイトル（h1）のスタイル */
-h1:first-of-type {
-    font-size: 36px; /* サイズをさらに大きく */
-    color: #4CAF50;
-    font-weight: bold;
-    margin: 10px 20px 20px;
-    border-bottom: 2px solid #4CAF50; /* タイトルを引き立てる下線を追加 */
-    padding-bottom: 10px; /* 下線との間隔を調整 */
-}
-
-/* ユーザー情報 */
-p {
-    font-size: 16px;
-    margin: 5px 20px;
-}
-
-/* メインコンテンツ */
-h2 {
-    font-size: 24px;
-    margin: 30px 20px 10px;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
     color: #333;
-    border-bottom: 2px solid #4CAF50;
-    padding-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* リンクボタン */
-a {
-    display: inline-block;
-    margin: 20px 20px;
-    padding: 12px 20px;
+/* ヘッダー部分のスタイル */
+header {
+    width: 100%;
     background-color: #4CAF50;
-    color: #fff;
-    text-decoration: none;
-    font-size: 16px;
-    border-radius: 8px;
-    font-weight: bold;
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-a:hover {
-    background-color: #45a049;
-    transform: scale(1.05);
-}
-
-/* スケジュール一覧 */
-ul {
-    list-style: none;
-    padding: 0;
-    margin: 20px;
-}
-
-li {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    color: white;
     padding: 15px;
-    margin-bottom: 15px;
+    text-align: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-h3 {
-    font-size: 20px;
-    margin-bottom: 10px;
-    color: #333;
+header h1 {
+    margin: 0;
+    font-size: 24px;
 }
 
-p {
-    font-size: 16px;
-    margin: 5px 0;
+.user-info p {
+    margin: 5px 0 0;
+    font-size: 14px;
 }
 
-/* レスポンシブ対応 */
-@media (max-width: 768px) {
-    h1:first-of-type {
-        font-size: 24px;
-    }
-
-    h2 {
-        font-size: 20px;
-    }
-
-    p, h3 {
-        font-size: 14px;
-    }
-
-    a {
-        font-size: 14px;
-        padding: 10px 16px;
-    }
-}
-/* 投稿詳細セクションのスタイル */
-.post-details {
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
+/* メイン部分のスタイル */
+main {
+    width: 90%;
+    max-width: 800px;
     margin: 20px auto;
 }
 
-.post-details h2 {
-    font-size: 28px;
-    color: #4CAF50;
-    margin-bottom: 15px;
-}
-
-.post-details ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.post-details li {
-    margin: 10px 0;
-    font-size: 16px;
-    color: #333;
-}
-
-.back-link {
+/* 新しいスケジュール投稿リンク */
+main a {
     display: block;
-    margin-top: 20px;
-    font-size: 16px;
-    color: #4CAF50;
+    text-align: center;
+    background-color: #4CAF50;
+    color: white;
     text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s;
 }
 
-.back-link:hover {
-    text-decoration: underline;
+main a:hover {
+    background-color: #45a049;
+}
+
+/* 投稿リストセクション */
+.post-list h2 {
+    font-size: 20px;
+    color: #4CAF50;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.scrollable {
+    max-height: 60vh; /* スクロール可能エリアの高さ */
+    overflow-y: auto;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* スクロールエリア内の投稿アイテム */
+.post-item {
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.post-item:last-child {
+    border-bottom: none;
+}
+
+.post-item h3 {
+    font-size: 18px;
+    color: #4CAF50;
+    margin: 0;
+}
+
+.post-item p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+/* 戻るボタンのスタイル */
+.back-button {
+    display: block;
+    width: 200px;
+    margin: 20px auto;
+    text-align: center;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.back-button:hover {
+    background-color: #45a049;
+}
+
+/* スクロールバーのカスタマイズ */
+.scrollable::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+    background: #4CAF50;
+    border-radius: 5px;
+}
+
+.scrollable::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 20px;
+    }
+
+    .user-info p {
+        font-size: 12px;
+    }
+
+    main a {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .post-item h3 {
+        font-size: 16px;
+    }
+
+    .post-item p {
+        font-size: 12px;
+    }
+
+    .back-button {
+        font-size: 14px;
+        padding: 8px;
+        width: 90%;
+    }
 }

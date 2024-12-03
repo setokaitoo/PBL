@@ -80,3 +80,29 @@ button:hover {
         left: 20px;
     }
 }
+
+/* 戻るボタンのスタイル */
+.back-button {
+    background-color: #f44336; /* 赤い背景 */
+    color: white;
+    border: none;
+    padding: 8px 12px; /* 少し小さいパディング */
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px; /* 少し小さいフォントサイズ */
+    text-align: center;
+    text-decoration: none; /* リンクの下線を消す */
+    display: inline-block; /* サイズ調整のため */
+    width: auto; /* ボタン幅を内容に合わせる */
+    transition: background-color 0.3s;
+    margin-top: 15px; /* フォームとの間に余白を追加 */
+}
+
+.back-button:hover {
+    background-color: #d32f2f; /* ホバー時に濃い赤 */
+}
+
+/* 中央揃えのためのスタイル */
+.center-align {
+    text-align: center; /* ボタンを中央揃えにする */
+}
