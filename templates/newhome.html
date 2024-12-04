@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ホーム</title>
+    <link rel ="stylesheet" href = "{{ url_for('static', filename='home.css') }}">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="{{url_for('static', filename='logo.png')}}" alt="アプリのロゴ" class="logo">
+    <h1>ホーム画面</h1>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('search') }}">ジャンル検索</a></li>
+            <li><a href="{{ url_for('mypage') }}">マイページ</a></li>
+            <li><a href="{{ url_for('schedulelist') }}">スケジュール一覧を見る</a></li>
+    
+        </ul>
+    </nav>
+</body>
+</html>
