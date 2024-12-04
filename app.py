@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash, session
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import pytz
@@ -121,7 +121,10 @@ def load_user(user_id):
 def home():
     
     #store_set()
-    return render_template('home.html')
+    if uid:
+        return render_template('mypage.html')
+    else:
+        return render_template('home.html')
 
 # ジャンル検索画面
 @app.route('/search')
