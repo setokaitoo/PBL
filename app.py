@@ -111,6 +111,9 @@ def store_set():
     store = Store(**list.stores12)
     db.session.add(store)
     db.session.commit()
+    store = Store(**list.stores13)
+    db.session.add(store)
+    db.session.commit()
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -125,6 +128,13 @@ def home():
         return render_template('mypage.html')
     else:
         return render_template('home.html')
+
+#ログイン後のホーム画面
+@app.route('/newhome')
+def newhome():
+    
+    #store_set()
+    return render_template('newhome.html')
 
 # ジャンル検索画面
 @app.route('/search')

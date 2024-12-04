@@ -83,5 +83,12 @@ stores12 = {
     "location":"https://www.google.com/maps/d/viewer?hl=ja&mid=1VvQO8_9-EHnf5H9j"
 }
 
+stores13 = {
+    "name":"1598食堂",
+    "category":"海鮮",
+    "homepage":"1598食堂",
+    "location":"https://www.google.com/maps/d/viewer?hl=ja&mid=1VvQO8_9-EHnf5H9j"
+}
+
 #db.session.add_all(stores)
 #db.session.commit()
