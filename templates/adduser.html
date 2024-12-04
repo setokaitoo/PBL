@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>新規登録</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='adduser.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='common.css') }}">
 </head>
 <body>
     <h1>新規登録画面</h1>
@@ -28,6 +28,10 @@
         <input type="text" id="mail" name="mail" required>
         <br>
         <button type="submit">登録</button>
-    </form>    
+        
+    </form>  
+      
+    <!-- ホームに戻るボタン -->
+    <a href="{{ url_for('home') }}" class="back-button">ホームに戻る</a>
 </body>
 </html>
