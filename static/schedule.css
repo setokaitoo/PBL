@@ -1,96 +1,117 @@
-/* 全体の背景とフォント設定 */
+/* 全体のスタイル */
 body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
     color: #333;
-}
-
-/* タスクバーのスタイル */
-.taskbar {
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
     align-items: center;
-    background-color: #4CAF50;
-    padding: 10px 0;
-    position: fixed;
-    top: 0;
-    left: 0;
+}
+
+header {
     width: 100%;
-    z-index: 1000;
-}
-
-.taskbar a {
+    background-color: #4CAF50;
     color: white;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: bold;
-    padding: 8px 12px;
-    transition: background-color 0.3s;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.taskbar a:hover {
-    background-color: #45a049;
-    border-radius: 5px;
-}
-
-/* コンテンツ全体のスタイル */
-.content {
-    padding: 80px 20px; /* タスクバーの高さ分マージン */
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-/* タイトルのスタイル */
-h1 {
+header h1 {
+    margin: 0;
     font-size: 24px;
-    color: #4CAF50;
+}
+
+/* フォーム全体 */
+form {
+    background-color: #fff;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 700px;
     text-align: center;
     margin-bottom: 20px;
 }
 
-/* スケジュールリストのスタイル */
-.schedule-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    max-height: 60vh; /* スクロール可能な高さ */
-    overflow-y: auto;
-    background: #fff;
+/* ラベルと入力フィールドのスタイル */
+label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+    text-align: center;
+}
+
+input[type="text"] {
+    width: 50%;
+    padding: 10px;
+    margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 15px;
+    box-sizing: border-box;
+    text-align: center;
 }
 
-.schedule-list li {
+input[type="datetime-local"] {
+    width: 25%;
     padding: 10px;
-    border-bottom: 1px solid #ddd;
-}
-
-.schedule-list li:last-child {
-    border-bottom: none;
-}
-
-.schedule-list p {
-    margin: 5px 0;
-}
-
-.schedule-list strong {
-    color: #4CAF50;
-}
-
-/* スクロールバーのスタイル */
-.schedule-list::-webkit-scrollbar {
-    width: 8px;
-}
-
-.schedule-list::-webkit-scrollbar-thumb {
-    background: #4CAF50;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
     border-radius: 5px;
+    box-sizing: border-box;
+    text-align: center;
 }
 
-.schedule-list::-webkit-scrollbar-track {
-    background: #f1f1f1;
+/* 入力フォームのスタイル */
+.input-field {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 2px solid #4CAF50;
+    background-color: #f9f9f9; /* 薄い灰色 */
+    font-size: 16px;
+    color: #333;
+    transition: border 0.3s, box-shadow 0.3s;
+}
+
+/* フォーカス時のスタイル */
+.input-field:focus {
+    border-color: #388E3C; /* より濃い緑 */
+    box-shadow: 0 0 8px rgba(56, 142, 60, 0.5);
+    outline: none;
+}
+
+/* ラベル */
+label {
+    font-size: 18px;
+    color: #4CAF50;
+    margin-bottom: 5px;
+    display: block;
+}
+
+button, .back-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    display: block;
+    width: 25%;
+    margin: 10px auto;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+/* ホバー時のスタイル */
+button:hover, .back-button:hover {
+    background-color: #45a049;
+}
+    
+.back-button:hover {
+    background-color: #45a049;
 }

@@ -122,19 +122,21 @@ def load_user(user_id):
 # ホーム画面
 @app.route('/')
 def home():
-    
+    global uid
     #store_set()
     if uid:
-        return render_template('mypage.html')
+        return render_template('newhome.html')
     else:
         return render_template('home.html')
 
 #ログイン後のホーム画面
 @app.route('/newhome')
 def newhome():
-    
+    if uid:
     #store_set()
-    return render_template('newhome.html')
+        return render_template('newhome.html')
+    else:
+        return redirect(url_for('home'))
 
 # ジャンル検索画面
 @app.route('/search')
@@ -153,7 +155,7 @@ def login():
             user = User.query.filter_by(password=newpass).first()
             if user is not None:
                 uid = user_id
-                return redirect(url_for('mypage'))           
+                return redirect(url_for('newhome'))           
             else:
                 flash('パスワードが間違っています。再度入力してください。')
                 return redirect(url_for('login'))
@@ -229,6 +231,7 @@ def map():
 #スケジュール投稿画面
 @app.route('/schedule', methods=['GET', 'POST'])
 def schedule():
+
     if request.method == 'POST':
         # フォームからデータを取得
         title = request.form['post_title']
@@ -269,21 +272,30 @@ def schedule():
         # 投稿後にマイページにリダイレクト
         return redirect(url_for('mypage'))
     if request.method == 'GET':
-        return render_template('schedule.html')
+        if uid:
+            return render_template('schedule.html')
+        else:
+            return redirect(url_for('login'))
     
 #スケジュール一覧画面
 @app.route('/schedulelist')
 def schedulelist():
+    global uid
     try:
         # データベースからすべての投稿を取得
         all_posts = Post.query.all()
-        return render_template('schedulelist.html', posts=all_posts)
+        if uid:
+            return render_template('newschedulelist.html', posts=all_posts)
+        else:
+            return render_template('schedulelist.html', posts=all_posts)
     except Exception as e:
         return f"エラーが発生しました: {e}", 400
     
-
-
-
+@app.route('/logout')
+def logout():
+    global uid
+    uid = ''
+    return redirect(url_for('home'))
 
 if __name__ == '__main__':
     app.run()

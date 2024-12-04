@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
+<header>
     <meta charset="UTF-8">
-    <title>旅行スケジュール投稿</title>
-</head>
-<body>
     <h1>旅行スケジュール投稿</h1>
+    <link rel="stylesheet" href="{{ url_for('static', filename='schedule.css') }}">
+</header>
+
+<body>
     <form action="/schedule" method="POST">
-        <h3>投稿タイトル</h3>
         <label for="post_title">投稿タイトル</label>
         <input type="text" id="post_title" name="post_title" required>
 
@@ -37,6 +37,6 @@
 
         <button type="submit">投稿する</button>
     </form>
-    <a href="/mypage">マイページに戻る</a>
+    <a href="{{ url_for('mypage') }}" class="back-button">マイページに戻る</a>
 </body>
 </html>

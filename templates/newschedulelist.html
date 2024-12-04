@@ -15,8 +15,8 @@
 
     <!-- タスクバー -->
     <div class="taskbar">
-        <a href="{{ url_for('adduser') }}">新規登録</a>
-        <a href="{{ url_for('login') }}">ログイン</a>
+        <a href="{{ url_for('mypage') }}">マイページ</a>
+        <a href="{{ url_for('schedule') }}">新規投稿</a>
         <a href="{{ url_for('home') }}">ホーム</a>
     </div>
 
@@ -51,6 +51,6 @@
         } else if (condition4 !== none) {
             message3.classList.remove("hidden");
         }
-  </script>
+    </script>
 </body>
 </html>
