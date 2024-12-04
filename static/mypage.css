@@ -46,7 +46,7 @@ main a {
     text-decoration: none;
     padding: 10px 15px;
     border-radius: 5px;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     font-size: 16px;
     font-weight: bold;
     transition: background-color 0.3s;
@@ -74,27 +74,11 @@ main a:hover {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* スクロールエリア内の投稿アイテム */
-.post-item {
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #ddd;
-}
-
-.post-item:last-child {
-    border-bottom: none;
-}
-
-.post-item h3 {
-    font-size: 18px;
-    color: #4CAF50;
-    margin: 0;
-}
-
-.post-item p {
-    margin: 5px 0;
-    font-size: 14px;
-    color: #555;
+/* コンテンツ全体のスタイル */
+.content {
+    padding: 40px 20px; /* タスクバーの高さ分マージン */
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 /* 戻るボタンのスタイル */
@@ -158,4 +142,50 @@ main a:hover {
         padding: 8px;
         width: 90%;
     }
+}
+
+/* スケジュールリストのスタイル */
+/* スケジュールリストのスタイル */
+.schedule-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 60vh; /* スクロール可能な高さ */
+    overflow-y: auto;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+}
+
+.schedule-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.schedule-list li:last-child {
+    border-bottom: none;
+}
+
+.schedule-list p {
+    margin: 5px 0;
+}
+
+.schedule-list strong {
+    color: #4CAF50;
+}
+
+/* スクロールバーのスタイル */
+.schedule-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.schedule-list::-webkit-scrollbar-thumb {
+    background: #4CAF50;
+    border-radius: 5px;
+}
+
+.schedule-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
 }
