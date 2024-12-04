@@ -9,8 +9,8 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from sqlalchemy import create_engine
 from sqlalchemy import Column, Integer, String, ForeignKey, PrimaryKeyConstraint
 from sqlalchemy.ext.declarative import declarative_base
-from models import db, Store
-import os 
+import os
+import list
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///muroran.db'
@@ -19,10 +19,10 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = os.urandom(24)
 
 # dbのインスタンスを作成し、アプリに関連付け
-#db = SQLAlchemy()
+db = SQLAlchemy(app)
 
 # アプリケーションに db を関連付ける
-db.init_app(app)
+#db.init_app(app)
 
 #db = SQLAlchemy(app)
 
@@ -55,7 +55,7 @@ class User(db.Model, UserMixin):
     
 class Post(db.Model):
     id = db.Column(db.String(255), primary_key=True)
-    post_name = db.Column(db.String(255))
+    post_name = db.Column(db.String(255), primary_key=True)
     time1 = db.Column(db.DateTime, nullable=False)
     place1 = db.Column(db.String(255), nullable=False)
     time2 = db.Column(db.DateTime, nullable=True)
@@ -67,22 +67,60 @@ class Post(db.Model):
     # 複合主キーを定義
     __table_args__ = (PrimaryKeyConstraint(id, post_name),)
     
-#class Store(db.Model):
-    #id = db.Column(db.Integer, primary_key=True)
-    #name = db.Column(db.String(80), nullable=False)
-    #category = db.Column(db.String(50), nullable=False)
-    #homepage = db.Column(db.String(255), nullable=True)  # ホームページURL
-    #location = db.Column(db.String(255), nullable=True)  # 住所や地図リンク
-    
+class Store(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), nullable=False)
+    category = db.Column(db.String(50), nullable=False)
+    homepage = db.Column(db.String(255), nullable=True)  # ホームページURL
+    location = db.Column(db.String(255), nullable=True)  # 住所や地図リンク
 
-    
+def store_set():
+    store = Store(**list.stores1)
+    db.session.add(store)
+    db.session.commit()
+    store = Store(**list.stores2)
+    db.session.add(store)
+    db.session.commit()
+    store = Store(**list.stores3)
+    db.session.add(store)
+    db.session.commit()
+    store = Store(**list.stores4)
+    db.session.add(store)
+    db.session.commit()
+    store = Store(**list.stores5)
+    db.session.add(store)
+    db.session.commit()
+    store = Store(**list.stores6)
+    db.session.add(store)
+    db.session.commit()
+    store = Store(**list.stores7)
+    db.session.add(store)
+    db.session.commit()
+    store = Store(**list.stores8)
+    db.session.add(store)
+    db.session.commit()
+    store = Store(**list.stores9)
+    db.session.add(store)
+    db.session.commit()
+    store = Store(**list.stores10)
+    db.session.add(store)
+    db.session.commit()
+    store = Store(**list.stores11)
+    db.session.add(store)
+    db.session.commit()
+    store = Store(**list.stores12)
+    db.session.add(store)
+    db.session.commit()
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
-    
+
 # ホーム画面
 @app.route('/')
 def home():
+    
+    #store_set()
     return render_template('home.html')
 
 # ジャンル検索画面

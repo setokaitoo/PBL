@@ -7,6 +7,24 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='schedule.css') }}">
 </head>
 <body>
+<<<<<<< HEAD
+    <h1>スケジュール一覧</h1>
+    <ul>
+        {% for post in posts %}
+        <li>
+<<<<<<< Updated upstream
+=======
+            <p>投稿者名: {{ post.user_id }}</p>
+>>>>>>> Stashed changes
+            <p>投稿タイトル: {{ post.post_name }}</p>
+            <p>場所1: {{ post.place1 }} ({{ post.time1 }})</p>
+            <p>場所2: {{ post.place2 }} ({{ post.time2 }})</p>
+            <p>場所3: {{ post.place3 }} ({{ post.time3 }})</p>
+            <p>場所4: {{ post.place4 }} ({{ post.time4 }})</p>
+        </li>
+        {% endfor %}
+    </ul>
+=======
 
     <!-- タスクバー -->
     <div class="taskbar">
@@ -31,5 +49,6 @@
         </ul>
     </div>
 
+>>>>>>> 4b2ff2aa43ceb5c7c66deaa477996aee70141540
 </body>
 </html>
