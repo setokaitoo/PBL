@@ -238,6 +238,11 @@ def schedule():
     if request.method == 'POST':
         # フォームからデータを取得
         title = request.form['post_title']
+        
+        post = Post.query.filter_by(post_name=title).first()
+        if post is not None:
+            flash('すでにそのタイトルで投稿されています。')
+            
         time1 = datetime.strptime(request.form['time1'], '%Y-%m-%dT%H:%M')
         place1 = request.form['place1']
         
