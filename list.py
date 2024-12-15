@@ -89,6 +89,175 @@ stores13 = {
     "homepage":"https://www.bing.com/ck/a?!&&p=d9aba32b1445567bcbb3a5ec72ed402d4087ffc2469f9b842a45091d91a51178JmltdHM9MTczMDc2NDgwMA&ptn=3&ver=2&hsh=4&fclid=350d644a-d8c6-65a0-3df6-74a7d9bc64af&psq=%e5%ae%a4%e8%98%ad%e3%80%80%ef%bc%91%ef%bc%95%ef%bc%99%ef%bc%98&u=a1aHR0cHM6Ly90YWJlbG9nLmNvbS9ob2trYWlkby9BMDEwOC9BMDEwODAzLzEwNzQyOTEvP21zb2NraWQ9MzUwZDY0NGFkOGM2NjVhMDNkZjY3NGE3ZDliYzY0YWY&ntb=1",
     "location":"https://www.google.com/maps/d/viewer?hl=ja&mid=1VvQO8_9-EHnf5H9j"
 }
+stores14 = {
+    "name":"やきとり一平 本店",
+    "category":"居酒屋",
+    "homepage":"https://www.e-ippei.com/",
+    "location":"https://www.google.com/maps/d/edit?mid=17wz32r-S3prL8_kE0XTtH0WQJ9ShOew&usp=sharing"
+}
+stores15 = {
+    "name":"焼肉居酒屋いただき",
+    "category":"居酒屋",
+    "homepage":"https://yakiniku-izakaya-itadaki.com/?utm_source=google&utm_medium=map",
+    "location":"https://www.google.com/maps/d/edit?mid=17wz32r-S3prL8_kE0XTtH0WQJ9ShOew&usp=sharing"
+}
+stores16 = {
+    "name":"居酒屋 まんまる はなれ",
+    "category":"居酒屋",
+    "homepage":"居酒屋 まんまる はなれ",
+    "location":"https://www.google.com/maps/d/edit?mid=17wz32r-S3prL8_kE0XTtH0WQJ9ShOew&usp=sharing"
+}
+stores17 = {
+    "name":"鳥辰 中島店",
+    "category":"居酒屋",
+    "homepage":"https://murocci.or.jp/nakajima/04/",
+    "location":"https://www.google.com/maps/d/edit?mid=17wz32r-S3prL8_kE0XTtH0WQJ9ShOew&usp=sharing"
+}
+stores18 = {
+    "name":"白木屋 東室蘭ドンキホーテ前店",
+    "category":"居酒屋",
+    "homepage":"https://www.monteroza.co.jp/shop.html?utm_source=gmaps&shop=829337",
+    "location":"https://www.google.com/maps/d/edit?mid=17wz32r-S3prL8_kE0XTtH0WQJ9ShOew&usp=sharing"
+}
+stores19 = {
+    "name":"鳥辰本店",
+    "category":"居酒屋",
+    "homepage":"http://www3.plala.or.jp/toritatuhonntenn/",
+    "location":"https://www.google.com/maps/d/edit?mid=17wz32r-S3prL8_kE0XTtH0WQJ9ShOew&usp=sharing"
+}
+stores20 = {
+    "name":"室蘭串揚げ 中島一丁目商店",
+    "category":"居酒屋",
+    "homepage":"https://nakajimaittyoumesyouten.com/",
+    "location":"https://www.google.com/maps/d/edit?mid=17wz32r-S3prL8_kE0XTtH0WQJ9ShOew&usp=sharing"
+}
+stores21 = {
+    "name":"居酒屋えん",
+    "category":"居酒屋",
+    "homepage":"居酒屋えん",
+    "location":"https://www.google.com/maps/d/edit?mid=17wz32r-S3prL8_kE0XTtH0WQJ9ShOew&usp=sharing"
+}
+stores22 = {
+    "name":"鮮極家",
+    "category":"居酒屋",
+    "homepage":"鮮極家",
+    "location":"https://www.google.com/maps/d/edit?mid=17wz32r-S3prL8_kE0XTtH0WQJ9ShOew&usp=sharing"
+}
+stores23 = {
+    "name":"室蘭ランプ亭海の門",
+    "category":"居酒屋",
+    "homepage":"https://business.google.com/site/l/11466120540931874975?hl=ja",
+    "location":"https://www.google.com/maps/d/edit?mid=17wz32r-S3prL8_kE0XTtH0WQJ9ShOew&usp=sharing"
+}
+stores24 = {
+    "name":"居酒バル HIRO",
+    "category":"居酒屋",
+    "homepage":"https://www.instagram.com/bal_hiro",
+    "location":"https://www.google.com/maps/d/edit?mid=17wz32r-S3prL8_kE0XTtH0WQJ9ShOew&usp=sharing"
+}
+stores25 = {
+    "name":"半次郎",
+    "category":"居酒屋",
+    "homepage":"半次郎",
+    "location":"https://www.google.com/maps/d/edit?mid=17wz32r-S3prL8_kE0XTtH0WQJ9ShOew&usp=sharing"
+}
+stores26 = {
+    "name":"焼肉パラダイス",
+    "category":"居酒屋",
+    "homepage":"https://www.yakiniku-paradise.com/",
+    "location":"https://www.google.com/maps/d/edit?mid=17wz32r-S3prL8_kE0XTtH0WQJ9ShOew&usp=sharing"
+}
+stores27 = {
+    "name":"たのし味",
+    "category":"居酒屋",
+    "homepage":"たのし味",
+    "location":"https://www.google.com/maps/d/edit?mid=17wz32r-S3prL8_kE0XTtH0WQJ9ShOew&usp=sharing"
+}
+stores28 = {
+    "name":"大衆酒場志-kokoro-",
+    "category":"居酒屋",
+    "homepage":"大衆酒場志-kokoro-",
+    "location":"https://www.google.com/maps/d/edit?mid=17wz32r-S3prL8_kE0XTtH0WQJ9ShOew&usp=sharing"
+}
+stores29 = {
+    "name":"魚民 東室蘭中島町店",
+    "category":"居酒屋",
+    "homepage":"https://www.monteroza.co.jp/shop.html?utm_source=gmaps&shop=802704",
+    "location":"https://www.google.com/maps/d/edit?mid=17wz32r-S3prL8_kE0XTtH0WQJ9ShOew&usp=sharing"
+}
+stores30 = {
+    "name":"安兵衛",
+    "category":"居酒屋",
+    "homepage":"https://123110969r.wixsite.com/-site",
+    "location":"https://www.google.com/maps/d/edit?mid=17wz32r-S3prL8_kE0XTtH0WQJ9ShOew&usp=sharing"
+}
+stores31 = {
+    "name":"やきとり伊勢広",
+    "category":"居酒屋",
+    "homepage":"https://www.n-ya.co.jp/",
+    "location":"https://www.google.com/maps/d/edit?mid=17wz32r-S3prL8_kE0XTtH0WQJ9ShOew&usp=sharing"
+}
+stores32 = {
+    "name":"キーチ（KI-CHI)",
+    "category":"居酒屋",
+    "homepage":"キーチ（KI-CHI)",
+    "location":"https://www.google.com/maps/d/edit?mid=17wz32r-S3prL8_kE0XTtH0WQJ9ShOew&usp=sharing"
+}
+stores33 = {
+    "name":"こねぎ",
+    "category":"居酒屋",
+    "homepage":"https://m.facebook.com/pages/%E9%85%92%E8%8F%9C-%E3%81%93%E3%81%AD%E3%81%8E/124962514265557",
+    "location":"https://www.google.com/maps/d/edit?mid=17wz32r-S3prL8_kE0XTtH0WQJ9ShOew&usp=sharing"
+}
+stores34 = {
+    "name":"マルヨシ酒場",
+    "category":"居酒屋",
+    "homepage":"https://instagram.com/maruyoshisakaba2023?igshid=OGQ5ZDc2ODk2ZA==",
+    "location":"https://www.google.com/maps/d/edit?mid=17wz32r-S3prL8_kE0XTtH0WQJ9ShOew&usp=sharing"
+}
+stores35 = {
+    "name":"海鮮炭火料理 空雅",
+    "category":"居酒屋",
+    "homepage":"海鮮炭火料理 空雅",
+    "location":"https://www.google.com/maps/d/edit?mid=17wz32r-S3prL8_kE0XTtH0WQJ9ShOew&usp=sharing"
+}
+stores36 = {
+    "name":"一番町",
+    "category":"居酒屋",
+    "homepage":"一番町",
+    "location":"https://www.google.com/maps/d/edit?mid=17wz32r-S3prL8_kE0XTtH0WQJ9ShOew&usp=sharing"
+}
+stores37 = {
+    "name":"炭火焼 キセキノイザカヤ",
+    "category":"居酒屋",
+    "homepage":"炭火焼 キセキノイザカヤ",
+    "location":"https://www.google.com/maps/d/edit?mid=17wz32r-S3prL8_kE0XTtH0WQJ9ShOew&usp=sharing"
+}
+stores38 = {
+    "name":"男車",
+    "category":"居酒屋",
+    "homepage":"男車",
+    "location":"https://www.google.com/maps/d/edit?mid=17wz32r-S3prL8_kE0XTtH0WQJ9ShOew&usp=sharing"
+}
+stores39 = {
+    "name":"晴れ、時々ブタ",
+    "category":"居酒屋",
+    "homepage":"https://www.instagram.com/harebuta_muroran/",
+    "location":"https://www.google.com/maps/d/edit?mid=17wz32r-S3prL8_kE0XTtH0WQJ9ShOew&usp=sharing"
+}
+stores40 = {
+    "name":"まんまる",
+    "category":"居酒屋",
+    "homepage":"https://m.facebook.com/%E5%B1%85%E9%85%92%E5%B1%8B-%E3%81%BE%E3%82%93%E3%81%BE%E3%82%8B-262658791213378/",
+    "location":"https://www.google.com/maps/d/edit?mid=17wz32r-S3prL8_kE0XTtH0WQJ9ShOew&usp=sharing"
+}
+stores41 = {
+    "name":"やきとり呆屋",
+    "category":"居酒屋",
+    "homepage":"https://www.yakitori-houya.com/",
+    "location":"https://www.google.com/maps/d/edit?mid=17wz32r-S3prL8_kE0XTtH0WQJ9ShOew&usp=sharing"
+}
+
 
 #db.session.add_all(stores)
 #db.session.commit()

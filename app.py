@@ -202,9 +202,12 @@ def createuser():
 def mypage():
     global uid
     
-    # ログイン中のユーザーの投稿を取得
-    user_posts = Post.query.filter_by(id=uid).order_by(Post.id.desc()).all()
-    return render_template('mypage.html', user_id=uid, posts=user_posts)
+    if uid:
+        # ログイン中のユーザーの投稿を取得
+        user_posts = Post.query.filter_by(id=uid).order_by(Post.id.desc()).all()
+        return render_template('mypage.html', user_id=uid, posts=user_posts)
+    else:
+        return redirect(url_for('login'))
 
 # 店舗検索結果画面
 @app.route('/result')
@@ -235,6 +238,11 @@ def schedule():
     if request.method == 'POST':
         # フォームからデータを取得
         title = request.form['post_title']
+        
+        post = Post.query.filter_by(post_name=title).first()
+        if post is not None:
+            flash('すでにそのタイトルで投稿されています。')
+            
         time1 = datetime.strptime(request.form['time1'], '%Y-%m-%dT%H:%M')
         place1 = request.form['place1']
         

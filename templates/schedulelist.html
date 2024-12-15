@@ -37,20 +37,20 @@
         </ul>
     </div>
     <script>
-        condition2 = {{ posts.place2 }}
-        condition3 = {{ posts.place3 }}
-        condition4 = {{ posts.place4 }}
+        const condition2 = {{ posts.place2 }}
+        const condition3 = {{ posts.place3 }}
+        const condition4 = {{ posts.place4 }}
         const message1 = document.getElementById("message1");
         const message2 = document.getElementById("message2");
         const message3 = document.getElementById("message3");
 
-        if (condition !== none) {
+        if (condition2 !== none) {
             message1.classList.remove("hidden");
-        } else if (condition !== none) {
+        } else if (condition3 !== none) {
             message2.classList.remove("hidden");
         } else if (condition4 !== none) {
             message3.classList.remove("hidden");
         }
-  </script>
+    </script>
 </body>
 </html>

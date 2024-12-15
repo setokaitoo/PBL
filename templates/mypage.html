@@ -5,30 +5,49 @@
         <div class="user-info">
             <p>ユーザーID: {{ user_id }}</p>
         </div>
+        <style>
+            .hidden {
+              display: none;
+            }
+        </style>
         <link rel="stylesheet" href="{{ url_for('static', filename='/mypage.css') }}">
     </header>
 
     <main>
-        <a href="/schedule">新しいスケジュールを投稿する</a>
-        <section class="post-list">
+        <div class="content">
+            <a href="/schedule">新しいスケジュールを投稿する</a>
             <h2>投稿したスケジュール一覧</h2>
-            <div class="scrollable">
-                <ul>
-                    {% for post in posts %}
-                    <li class="post-item">
-                        <h3>スケジュール {{ post.post_name }}</h3>
-                        <p>ステップ1: {{ post.time1 }} - {{ post.place1 }}</p>
-                        <p>ステップ2: {{ post.time2 }} - {{ post.place2 }}</p>
-                        <p>ステップ3: {{ post.time3 }} - {{ post.place3 }}</p>
-                        <p>ステップ4: {{ post.time4 }} - {{ post.place4 }}</p>
-                    </li>
-                    {% else %}
+            <ul class="schedule-list">
+                {% for post in posts %}
+                <li>
+                    <p><strong>投稿タイトル:</strong> {{ post.post_name }}</p>
+                    <p><strong>場所1:</strong> {{ post.place1 }} (<span>{{ post.time1 }}</span>)</p>
+                    <div id="message1" class="hidden"> <p><strong>場所2:</strong> {{ post.place2 }} (<span>{{ post.time2 }}</span>)</p> </div>
+                    <div id="message2" class="hidden"> <p><strong>場所3:</strong> {{ post.place3 }} (<span>{{ post.time3 }}</span>)</p> </div>
+                    <div id="message3" class="hidden"> <p><strong>場所4:</strong> {{ post.place4 }} (<span>{{ post.time4 }}</span>)</p> </div>
+                {% else %}
                     <p>投稿がありません。</p>
-                    {% endfor %}
-                </ul>
-            </div>
-        </section>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
     </main>
+    <script>
+        const condition2 = {{ posts.place2 }}
+        const condition3 = {{ posts.place3 }}
+        const condition4 = {{ posts.place4 }}
+        const message1 = document.getElementById("message1");
+        const message2 = document.getElementById("message2");
+        const message3 = document.getElementById("message3");
+
+        if (condition2 !== none) {
+            message1.classList.remove("hidden");
+        } else if (condition3 !== none) {
+            message2.classList.remove("hidden");
+        } else if (condition4 !== none) {
+            message3.classList.remove("hidden");
+        }
+    </script>
     <!-- ホームに戻るボタン -->
     <a href="{{ url_for('home') }}" class="back-button">ホームに戻る</a>
 </body>

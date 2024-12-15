@@ -7,6 +7,17 @@
 </header>
 
 <body>
+    <!-- Flashメッセージの表示 -->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li style="color: red;">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    
     <form action="/schedule" method="POST">
         <label for="post_title">投稿タイトル</label>
         <input type="text" id="post_title" name="post_title" required>
