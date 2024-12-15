@@ -246,14 +246,14 @@ def schedule():
             place2 = None
             
         if request.form['time3'] != '':
-            time3 = datetime.strptime(request.form['time3'], '%Y-%m-%d %H:%M')
+            time3 = datetime.strptime(request.form['time3'], '%Y-%m-%dT%H:%M')
             place3 = request.form['place3']
         else:
             time3 = None
             place3 = None
             
         if request.form['time4'] != '':
-            time4 = datetime.strptime(request.form['time4'], '%Y-%m-%d %H:%M')
+            time4 = datetime.strptime(request.form['time4'], '%Y-%m-%dT%H:%M')
             place4 = request.form['place4']
         else:
             time4 = None

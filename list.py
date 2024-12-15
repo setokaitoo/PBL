@@ -86,7 +86,7 @@ stores12 = {
 stores13 = {
     "name":"1598食堂",
     "category":"海鮮",
-    "homepage":"1598食堂",
+    "homepage":"https://www.bing.com/ck/a?!&&p=d9aba32b1445567bcbb3a5ec72ed402d4087ffc2469f9b842a45091d91a51178JmltdHM9MTczMDc2NDgwMA&ptn=3&ver=2&hsh=4&fclid=350d644a-d8c6-65a0-3df6-74a7d9bc64af&psq=%e5%ae%a4%e8%98%ad%e3%80%80%ef%bc%91%ef%bc%95%ef%bc%99%ef%bc%98&u=a1aHR0cHM6Ly90YWJlbG9nLmNvbS9ob2trYWlkby9BMDEwOC9BMDEwODAzLzEwNzQyOTEvP21zb2NraWQ9MzUwZDY0NGFkOGM2NjVhMDNkZjY3NGE3ZDliYzY0YWY&ntb=1",
     "location":"https://www.google.com/maps/d/viewer?hl=ja&mid=1VvQO8_9-EHnf5H9j"
 }
 

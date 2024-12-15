@@ -16,11 +16,6 @@ def seed_data(csv_file_path):
             db.session.add(store)
         db.session.commit()
         
-        with open(csv_file_path, mode='r', encoding='utf-8') as file:
-            reader = csv.DictReader(file)
-            print("CSVヘッダー:", reader.fieldnames)  # ヘッダー行を表示
-            for row in reader:
-                print("読み込んだ行:", row)
 
 if __name__ == "__main__":
     app = Flask(__name__)
