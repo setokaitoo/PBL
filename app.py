@@ -136,7 +136,7 @@ def store_set():
     store = Store(**list.stores13)
     db.session.add(store)
     db.session.commit()
-    
+  
 # スケジュール削除機能
 from flask import redirect, url_for, flash
 from flask_login import current_user, login_required
