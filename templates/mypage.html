@@ -1,53 +1,84 @@
 <!DOCTYPE html>
 <html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>マイページ</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='mypage.css') }}">
+</head>
+<body>
     <header>
         <h1>マイページ</h1>
         <div class="user-info">
             <p>ユーザーID: {{ user_id }}</p>
         </div>
-        <style>
-            .hidden {
-              display: none;
-            }
-        </style>
-        <link rel="stylesheet" href="{{ url_for('static', filename='/mypage.css') }}">
     </header>
 
     <main>
         <div class="content">
+            <!-- フラッシュメッセージの表示 -->
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            {% endwith %}
+
+            <!-- 新しいスケジュール投稿リンク -->
             <a href="/schedule">新しいスケジュールを投稿する</a>
             <h2>投稿したスケジュール一覧</h2>
+
             <ul class="schedule-list">
                 {% for post in posts %}
-                <li>
-                    <p><strong>投稿タイトル:</strong> {{ post.post_name }}</p>
-                    <p><strong>場所1:</strong> {{ post.place1 }} (<span>{{ post.time1 }}</span>)</p>
-                    <div id="message1" class="hidden"> <p><strong>場所2:</strong> {{ post.place2 }} (<span>{{ post.time2 }}</span>)</p> </div>
-                    <div id="message2" class="hidden"> <p><strong>場所3:</strong> {{ post.place3 }} (<span>{{ post.time3 }}</span>)</p> </div>
-                    <div id="message3" class="hidden"> <p><strong>場所4:</strong> {{ post.place4 }} (<span>{{ post.time4 }}</span>)</p> </div>
-                {% else %}
-                    <p>投稿がありません。</p>
-                </li>
-                {% endfor %}
+    <li>
+        <p><strong>投稿タイトル:</strong> {{ post.post_name }}</p>
+        <p><strong>場所1:</strong> {{ post.place1 }} (<span>{{ post.time1 }}</span>)</p>
+
+        <!-- 画像1がある場合 -->
+        {% if post.image1_path %}
+            <img src="{{ url_for('static', filename=post.image1_path) }}" alt="画像1" style="max-width: 200px;">
+        {% endif %}
+
+        <!-- 場所2と画像2 -->
+        {% if post.place2 %}
+            <p><strong>場所2:</strong> {{ post.place2 }} (<span>{{ post.time2 }}</span>)</p>
+            {% if post.image2_path %}
+                <img src="{{ url_for('static', filename=post.image2_path) }}" alt="画像2" style="max-width: 200px;">
+            {% endif %}
+        {% endif %}
+
+        <!-- 場所3と画像3 -->
+        {% if post.place3 %}
+            <p><strong>場所3:</strong> {{ post.place3 }} (<span>{{ post.time3 }}</span>)</p>
+            {% if post.image3_path %}
+                <img src="{{ url_for('static', filename=post.image3_path) }}" alt="画像3" style="max-width: 200px;">
+            {% endif %}
+        {% endif %}
+
+        <!-- 場所4と画像4 -->
+        {% if post.place4 %}
+            <p><strong>場所4:</strong> {{ post.place4 }} (<span>{{ post.time4 }}</span>)</p>
+            {% if post.image4_path %}
+                <img src="{{ url_for('static', filename=post.image4_path) }}" alt="画像4" style="max-width: 200px;">
+            {% endif %}
+        {% endif %}
+
+        <!-- 削除ボタン -->
+        <form action="{{ url_for('delete_post', post_name=post.post_name) }}" method="POST" style="display: inline;">
+            <button type="submit" class="btn btn-danger">削除</button>
+        </form>
+    </li>
+{% else %}
+    <p>投稿がありません。</p>
+{% endfor %}
+
             </ul>
         </div>
     </main>
-    <script>
-        const condition2 = {{ posts.place2 }}
-        const condition3 = {{ posts.place3 }}
-        const condition4 = {{ posts.place4 }}
-        const message1 = document.getElementById("message1");
-        const message2 = document.getElementById("message2");
-        const message3 = document.getElementById("message3");
 
-        if (condition2 !== none) {
-            message1.classList.remove("hidden");
-        } else if (condition3 !== none) {
-            message2.classList.remove("hidden");
-        } else if (condition4 !== none) {
-            message3.classList.remove("hidden");
-        }
-    </script>
     <!-- ホームに戻るボタン -->
     <a href="{{ url_for('home') }}" class="back-button">ホームに戻る</a>
 </body>

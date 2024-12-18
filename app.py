@@ -1,6 +1,8 @@
 from flask import Flask
 from flask import render_template, request, redirect, url_for, flash, session
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+
 from datetime import datetime
 import pytz
 import random, string
@@ -11,10 +13,19 @@ from sqlalchemy import Column, Integer, String, ForeignKey, PrimaryKeyConstraint
 from sqlalchemy.ext.declarative import declarative_base
 import os
 import list
+from werkzeug.utils import secure_filename
+
 
 app = Flask(__name__)
+UPLOAD_FOLDER = 'static/uploads'
+
+
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///muroran.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER  # アップロード先のディレクトリ
+app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}  # 許可するファイル形式
+
 
 app.secret_key = os.urandom(24)
 
@@ -25,6 +36,12 @@ db = SQLAlchemy(app)
 #db.init_app(app)
 
 #db = SQLAlchemy(app)
+
+migrate = Migrate(app, db)
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
+
 
 @app.before_request
 def setup():
@@ -58,12 +75,17 @@ class Post(db.Model):
     post_name = db.Column(db.String(255), primary_key=True)
     time1 = db.Column(db.DateTime, nullable=False)
     place1 = db.Column(db.String(255), nullable=False)
+    image1_path = db.Column(db.String(200))  # 画像パスを保存するカラム
     time2 = db.Column(db.DateTime, nullable=True)
     place2 = db.Column(db.String(255), nullable=True)
+    image2_path = db.Column(db.String(200))  # 画像パスを保存するカラム
     time3 = db.Column(db.DateTime, nullable=True)
     place3 = db.Column(db.String(255), nullable=True)
+    image3_path = db.Column(db.String(200))  # 画像パスを保存するカラム
     time4 = db.Column(db.DateTime, nullable=True)
     place4 = db.Column(db.String(255), nullable=True)
+    image4_path = db.Column(db.String(200))  # 画像パスを保存するカラム
+    image_path = db.Column(db.String(255), nullable=True)  # 画像の保存先パスを追加
     # 複合主キーを定義
     __table_args__ = (PrimaryKeyConstraint(id, post_name),)
     
@@ -114,6 +136,39 @@ def store_set():
     store = Store(**list.stores13)
     db.session.add(store)
     db.session.commit()
+    
+# スケジュール削除機能
+from flask import redirect, url_for, flash
+from flask_login import current_user, login_required
+
+@app.route('/delete_post/<string:post_name>', methods=['POST'])
+@login_required  # ログインしていないユーザーをログインページにリダイレクト
+def delete_post(post_name):
+    try:
+        # ユーザーが認証されているか確認
+        if not current_user.is_authenticated:
+            flash('削除するにはログインが必要です。')
+            return redirect(url_for('login'))  # ログインページへリダイレクト
+
+        # 指定された投稿を取得
+        post = Post.query.filter_by(id=current_user.id, post_name=post_name).first()
+
+        # 投稿が存在しない場合の処理
+        if not post:
+            flash('投稿が見つかりませんでした。')
+            return redirect(url_for('mypage'))
+
+        # 投稿をデータベースから削除
+        db.session.delete(post)
+        db.session.commit()
+        flash('投稿を削除しました。')
+
+    except Exception as e:
+        flash(f'エラーが発生しました: {e}')
+
+    return redirect(url_for('mypage'))
+
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -234,57 +289,53 @@ def map():
 #スケジュール投稿画面
 @app.route('/schedule', methods=['GET', 'POST'])
 def schedule():
-
     if request.method == 'POST':
-        # フォームからデータを取得
+        # 必須フィールドの取得
         title = request.form['post_title']
-        
-        post = Post.query.filter_by(post_name=title).first()
-        if post is not None:
-            flash('すでにそのタイトルで投稿されています。')
-            
         time1 = datetime.strptime(request.form['time1'], '%Y-%m-%dT%H:%M')
         place1 = request.form['place1']
-        
-        if request.form['time2'] != '':
-            time2 = datetime.strptime(request.form['time2'], '%Y-%m-%dT%H:%M')
-            place2 = request.form['place2']
-        else:
-            time2 = None
-            place2 = None
-            
-        if request.form['time3'] != '':
-            time3 = datetime.strptime(request.form['time3'], '%Y-%m-%dT%H:%M')
-            place3 = request.form['place3']
-        else:
-            time3 = None
-            place3 = None
-            
-        if request.form['time4'] != '':
-            time4 = datetime.strptime(request.form['time4'], '%Y-%m-%dT%H:%M')
-            place4 = request.form['place4']
-        else:
-            time4 = None
-            place4 = None
 
-        post = Post.query.filter_by(id=uid, post_name=title).first()
-        
-        if post is not None:
-            return render_template('schedule.html',id=id)
-        # データを保存
-        new_post = Post(id=uid, post_name=title, time1=time1, place1=place1, time2=time2, place2=place2, 
-                        time3=time3, place3=place3, time4=time4, place4=place4)
+        # 画像アップロード処理
+        def save_image(file):
+            if file and allowed_file(file.filename):
+                filename = f"{datetime.now().strftime('%Y%m%d%H%M%S')}_{secure_filename(file.filename)}"
+                file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                file.save(file_path)
+                return f"uploads/{filename}"  # データベース用パス
+            return None
+
+        image1_path = save_image(request.files.get('image1'))
+        image2_path = save_image(request.files.get('image2'))
+        image3_path = save_image(request.files.get('image3'))
+        image4_path = save_image(request.files.get('image4'))
+
+        # 新しい投稿を作成して保存
+        new_post = Post(
+            id=uid,
+            post_name=title,
+            time1=time1,
+            place1=place1,
+            image1_path=image1_path,
+            time2=datetime.strptime(request.form['time2'], '%Y-%m-%dT%H:%M') if request.form.get('time2') else None,
+            place2=request.form.get('place2'),
+            image2_path=image2_path,
+            time3=datetime.strptime(request.form['time3'], '%Y-%m-%dT%H:%M') if request.form.get('time3') else None,
+            place3=request.form.get('place3'),
+            image3_path=image3_path,
+            time4=datetime.strptime(request.form['time4'], '%Y-%m-%dT%H:%M') if request.form.get('time4') else None,
+            place4=request.form.get('place4'),
+            image4_path=image4_path
+        )
         db.session.add(new_post)
         db.session.commit()
 
-        # 投稿後にマイページにリダイレクト
         return redirect(url_for('mypage'))
+    
     if request.method == 'GET':
         if uid:
             return render_template('schedule.html')
         else:
             return redirect(url_for('login'))
-    
 #スケジュール一覧画面
 @app.route('/schedulelist')
 def schedulelist():

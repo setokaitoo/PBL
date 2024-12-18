@@ -189,3 +189,26 @@ main a:hover {
 .schedule-list::-webkit-scrollbar-track {
     background: #f1f1f1;
 }
+.schedule-image {
+    max-width: 300px;
+    height: auto;
+    margin: 10px 0;
+}
+
+.schedule-list li {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+}
+
+.btn-danger {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.btn-danger:hover {
+    background-color: darkred;
+}
