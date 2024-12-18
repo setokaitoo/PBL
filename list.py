@@ -259,7 +259,7 @@ stores41 = {
 }
 stores42 = {
     "name":"さっぽろっこ西口店",
-    "category":"ラーメン"
+    "category":"ラーメン",
     "homepage":"https://taisyo-g.com/nishiguchi/",
     "location":"https://www.google.com/maps/place/%E3%81%95%E3%81%A3%E3%81%BD%E3%82%8D%E3%81%A3%E3%81%93%E3%83%A9%E3%83%BC%E3%83%A1%E3%83%B3+%E8%A5%BF%E5%8F%A3%E5%BA%97/@42.3492625,141.0147943,15z/data=!3m1!4b1!4m6!3m5!1s0x5f9fda1abb54acf9:0xb4f49dee6fc4f30a!8m2!3d42.349263!4d141.025094!16s%2Fg%2F1tncsr02?entry=ttu&g_ep=EgoyMDI0MTIxMS4wIKXMDSoASAFQAw%3D%3D"
 }
