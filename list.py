@@ -258,5 +258,100 @@ stores41 = {
     "homepage":"https://www.yakitori-houya.com/",
     "location":"https://www.google.com/maps/d/edit?mid=17wz32r-S3prL8_kE0XTtH0WQJ9ShOew&usp=sharing"
 }
-
+stores42 = {
+    "name":"さっぽろっこ西口店",
+    "category":"ラーメン",
+    "homepage":"https://taisyo-g.com/nishiguchi/",
+    "location":"https://www.google.com/maps/place/%E3%81%95%E3%81%A3%E3%81%BD%E3%82%8D%E3%81%A3%E3%81%93%E3%83%A9%E3%83%BC%E3%83%A1%E3%83%B3+%E8%A5%BF%E5%8F%A3%E5%BA%97/@42.3492625,141.0147943,15z/data=!3m1!4b1!4m6!3m5!1s0x5f9fda1abb54acf9:0xb4f49dee6fc4f30a!8m2!3d42.349263!4d141.025094!16s%2Fg%2F1tncsr02?entry=ttu&g_ep=EgoyMDI0MTIxMS4wIKXMDSoASAFQAw%3D%3D"
+}
+stores43 = {
+    "name":"らぁめんひなた",
+    "category":"ラーメン",
+    "homepage":"",
+    "location":"https://www.google.com/maps?cid=12733376397177234275",   
+}
+stores44 = {
+    "name":"じぇんとる麺　中島",
+    "category":"ラーメン",
+    "homepage":"",
+    "location":"https://www.google.com/maps?cid=8076309992351630158",   
+}
+stores45 = {
+    "name":"味の大王なかじま店",
+    "category":"ラーメン",
+    "homepage":"",
+    "location": "https://www.google.com/maps?cid=1575115617318851476",   
+}
+stores46 = {
+    "name":"しぶき屋",
+    "category":"ラーメン",
+    "homepage":"",
+    "location": "https://www.google.com/maps?cid=17141201140469631768",   
+}
+stores47 = {
+    "name":"ラーメン初代好基",
+    "category":"ラーメン",
+    "homepage":"",
+    "location": "https://www.google.com/maps?cid=12265003098000857102",   
+}
+stores48 = {
+    "name":"麺屋哲神",
+    "category":"ラーメン",
+    "homepage":"",
+    "location": "https://www.google.com/maps/place/%E9%BA%BA%E5%B1%8B+%E5%93%B2%E7%A5%9E/@42.3557178,141.037859,17z/data=!3m1!4b1!4m6!3m5!1s0x5f9fd9003ced8815:0x4ce4626be2ca4ed0!8m2!3d42.3557178!4d141.037859!16s%2Fg%2F11y41rlsk_?entry=ttu&g_ep=EgoyMDI0MTIxMS4wIKXMDSoASAFQAw%3D%3D",   
+}
+stores49 = {
+    "name":"麺屋　智　室蘭店",
+    "category":"ラーメン",
+    "homepage":"",
+    "location": "https://www.google.com/maps/d/edit?hl=ja&mid=1bP8HvIxSjoYMWiJXccO_61FFbZk454g&ll=42.35573519338264%2C141.02839715399782&z=16",   
+}
+stores50 = {
+    "name":"だるま亭",
+    "category":"ラーメン",
+    "homepage":"",
+    "location": "https://www.google.com/maps/place/%E3%81%A0%E3%82%8B%E3%81%BE%E4%BA%AD/@42.3526628,141.0155946,17z/data=!3m1!4b1!4m6!3m5!1s0x5f9fda17a3a565c9:0xaf19d57c2cae872f!8m2!3d42.3526628!4d141.0155946!16s%2Fg%2F1tnpkvf7?entry=ttu&g_ep=EgoyMDI0MTIxMS4wIKXMDSoASAFQAw%3D%3D",   
+}
+stores51 = {
+    "name":"ファミリーレストラン　若鶴",
+    "category":"ラーメン",
+    "homepage":"",
+    "location": "https://www.google.com/maps/place/%E3%83%95%E3%82%A1%E3%83%9F%E3%83%AA%E3%83%BC%E3%83%AC%E3%82%B9%E3%83%88%E3%83%A9%E3%83%B3+%E8%8B%A5%E9%B6%B4/@42.335582,140.939361,17z/data=!3m1!4b1!4m6!3m5!1s0x5f9fdadb6821e10b:0xb27e9b32466383ad!8m2!3d42.335582!4d140.939361!16s%2Fg%2F1vk6z1lk?entry=ttu&g_ep=EgoyMDI0MTIxMS4wIKXMDSoASAFQAw%3D%3D",   
+}
+stores52 = {
+    "name":"蘭たん亭",
+    "category":"ラーメン",
+    "homepage":"",
+    "location": "https://www.google.com/maps/d/edit?hl=ja&mid=1bP8HvIxSjoYMWiJXccO_61FFbZk454g&ll=42.340474152560745%2C141.00564946134642&z=16",   
+}
+stores53 = {
+    "name":"なかよし　西口店",
+    "category":"ラーメン",
+    "homepage":"",
+    "location": "https://www.google.com/maps?cid=9396436010568582496",   
+}
+stores54 = {
+    "name":"なかよし　中島店",
+    "category":"ラーメン",
+    "homepage":"",
+    "location": "https://www.google.com/maps?cid=10412870890286454915",   
+}
+stores55 = {
+    "name":"味の大王　室蘭本店",
+    "category":"ラーメン",
+    "homepage":"",
+    "location": "https://www.google.com/maps?cid=6792462332079353283",   
+}
+stores56 = {
+    "name":"清洋軒",
+    "category":"ラーメン",
+    "homepage":"",
+    "location": "https://www.google.com/maps/place/%E6%B8%85%E6%B4%8B%E8%BB%92/@42.310975,140.9712528,17z/data=!4m16!1m9!3m8!1s0x5f9fd00f5452705b:0x44302a6899412b0e!2z5riF5rSL6LuS!8m2!3d42.310975!4d140.9712528!9m1!1b1!16s%2Fg%2F1tddxl_8!3m5!1s0x5f9fd00f5452705b:0x44302a6899412b0e!8m2!3d42.310975!4d140.9712528!16s%2Fg%2F1tddxl_8?entry=ttu&g_ep=EgoyMDI0MTIxMS4wIKXMDSoASAFQAw%3D%3D",   
+}
+stores57 = {
+    "name":"らーめんハウス　竹よし",
+    "category":"ラーメン",
+    "homepage":"",
+    "location": "https://www.google.com/maps/place/%E3%82%89%E3%83%BC%E3%82%81%E3%82%93%E3%83%8F%E3%82%A6%E3%82%B9+%E7%AB%B9%E3%82%88%E3%81%97/@42.3552253,141.0303264,17z/data=!3m1!4b1!4m6!3m5!1s0x5f9fda1dd95577ed:0x2c7bb482289d4389!8m2!3d42.3552253!4d141.0303264!16s%2Fg%2F1tjz7skm?entry=ttu&g_ep=EgoyMDI0MTIxMS4wIKXMDSoASAFQAw%3D%3D",   
+}
 
