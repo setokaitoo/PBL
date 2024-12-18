@@ -3,7 +3,8 @@ stores1 = {
     "name":"THE LAMP ROOM CAFE",
     "category":"軽食",
     "homepage":"https://tabelog.com/hokkaido/A0108/A010803/1073644/",
-    "location":"https://www.google.com/maps/d/viewer?mid=1qOVBnvYFo92NqgpxxWFQ7HffDQb8iUo&ll=42.34674620000001%2C141.0328872&z=11"
+    "location":"https://www.google.com/maps/d/viewer?mid=1qOVBnvYFo92NqgpxxWFQ7HffDQb8iUo&ll=42.34674620000001%2C141.0328872&z=11",
+    
 }
 
 stores2 = {
@@ -259,5 +260,3 @@ stores41 = {
 }
 
 
-#db.session.add_all(stores)
-#db.session.commit()

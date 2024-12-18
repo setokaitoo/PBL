@@ -96,6 +96,7 @@ class Store(db.Model):
     homepage = db.Column(db.String(255), nullable=True)  # ホームページURL
     location = db.Column(db.String(255), nullable=True)  # 住所や地図リンク
 
+
 def store_set():
     store = Store(**list.stores1)
     db.session.add(store)
@@ -137,21 +138,17 @@ def store_set():
     db.session.add(store)
     db.session.commit()
     
-# スケジュール削除機能
-from flask import redirect, url_for, flash
-from flask_login import current_user, login_required
+
 
 @app.route('/delete_post/<string:post_name>', methods=['POST'])
-@login_required  # ログインしていないユーザーをログインページにリダイレクト
+
 def delete_post(post_name):
+    global uid
     try:
-        # ユーザーが認証されているか確認
-        if not current_user.is_authenticated:
-            flash('削除するにはログインが必要です。')
-            return redirect(url_for('login'))  # ログインページへリダイレクト
+        
 
         # 指定された投稿を取得
-        post = Post.query.filter_by(id=current_user.id, post_name=post_name).first()
+        post = Post.query.filter_by(id=uid, post_name=post_name).first()
 
         # 投稿が存在しない場合の処理
         if not post:
