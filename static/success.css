@@ -1,0 +1,62 @@
+/* 全体のスタイル */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f8fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* コンテナ中央配置 */
+.container {
+    text-align: center;
+}
+
+/* タイトル */
+.title {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* カード部分 */
+.card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 30px 40px;
+    display: inline-block;
+}
+
+/* チェックマークアイコン */
+.icon {
+    font-size: 3rem;
+    color: #ff7043;
+    margin-bottom: 20px;
+}
+
+/* メッセージ部分 */
+.message {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* ボタンスタイル */
+.btn {
+    background-color: #ff7043;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #e64a19;
+}
