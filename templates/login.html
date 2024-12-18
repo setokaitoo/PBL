@@ -3,10 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>ログイン</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='adduser.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='common.css') }}">
 </head>
 <body>
     <h1>ログインページ</h1>
+    <!-- Flashメッセージの表示 -->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li style="color: red;">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
     <form method="post">
         <br>
         <label for="user_id">ユーザーID</label>
@@ -17,6 +27,8 @@
         <button type="submit">登録</button>
     </form>
 
+    <!-- ホームに戻るボタン -->
+    <a href="{{ url_for('home') }}" class="back-button">ホームに戻る</a>
     
 </body>
 </html>

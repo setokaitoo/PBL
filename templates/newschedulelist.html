@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>スケジュール一覧</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='schedulelist.css') }}">
+    <style>
+        .hidden {
+          display: none;
+        }
+        img {
+            max-width: 200px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- タスクバー -->
+    <div class="taskbar">
+        <a href="{{ url_for('mypage') }}">マイページ</a>
+        <a href="{{ url_for('schedule') }}">新規投稿</a>
+        <a href="{{ url_for('home') }}">ホーム</a>
+    </div>
+
+    <!-- スケジュール一覧 -->
+    <div class="content">
+        <h1>スケジュール一覧</h1>
+        <ul class="schedule-list">
+            {% for post in posts %}
+            <li>
+                <p><strong>投稿者:</strong> {{ post.id }}</p>
+                <p><strong>投稿タイトル:</strong> {{ post.post_name }}</p>
+                <p><strong>場所1:</strong> {{ post.place1 }} (<span>{{ post.time1 }}</span>)</p>
+
+                <!-- 画像1の表示 -->
+                {% if post.image1_path %}
+                    <img src="{{ url_for('static', filename=post.image1_path) }}" alt="画像1">
+                {% endif %}
+
+                <!-- 場所2と画像2 -->
+                {% if post.place2 %}
+                    <p><strong>場所2:</strong> {{ post.place2 }} (<span>{{ post.time2 }}</span>)</p>
+                    {% if post.image2_path %}
+                        <img src="{{ url_for('static', filename=post.image2_path) }}" alt="画像2">
+                    {% endif %}
+                {% endif %}
+
+                <!-- 場所3と画像3 -->
+                {% if post.place3 %}
+                    <p><strong>場所3:</strong> {{ post.place3 }} (<span>{{ post.time3 }}</span>)</p>
+                    {% if post.image3_path %}
+                        <img src="{{ url_for('static', filename=post.image3_path) }}" alt="画像3">
+                    {% endif %}
+                {% endif %}
+
+                <!-- 場所4と画像4 -->
+                {% if post.place4 %}
+                    <p><strong>場所4:</strong> {{ post.place4 }} (<span>{{ post.time4 }}</span>)</p>
+                    {% if post.image4_path %}
+                        <img src="{{ url_for('static', filename=post.image4_path) }}" alt="画像4">
+                    {% endif %}
+                {% endif %}
+            </li>
+            {% else %}
+                <p>投稿がありません。</p>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

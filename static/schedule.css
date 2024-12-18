@@ -1,0 +1,117 @@
+/* 全体のスタイル */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+/* フォーム全体 */
+form {
+    background-color: #fff;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 700px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* ラベルと入力フィールドのスタイル */
+label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+    text-align: center;
+}
+
+input[type="text"] {
+    width: 50%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+input[type="datetime-local"] {
+    width: 25%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+/* 入力フォームのスタイル */
+.input-field {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 2px solid #4CAF50;
+    background-color: #f9f9f9; /* 薄い灰色 */
+    font-size: 16px;
+    color: #333;
+    transition: border 0.3s, box-shadow 0.3s;
+}
+
+/* フォーカス時のスタイル */
+.input-field:focus {
+    border-color: #388E3C; /* より濃い緑 */
+    box-shadow: 0 0 8px rgba(56, 142, 60, 0.5);
+    outline: none;
+}
+
+/* ラベル */
+label {
+    font-size: 18px;
+    color: #4CAF50;
+    margin-bottom: 5px;
+    display: block;
+}
+
+button, .back-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    display: block;
+    width: 25%;
+    margin: 10px auto;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+/* ホバー時のスタイル */
+button:hover, .back-button:hover {
+    background-color: #45a049;
+}
+    
+.back-button:hover {
+    background-color: #45a049;
+}

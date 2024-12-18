@@ -3,19 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>店舗検索</title>
+    <title>ジャンル検索</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='search.css') }}">
 </head>
 <body>
-    <h1>店舗検索</h1>
-    <form action="/result" method="get">
-        <label for="category">カテゴリーを選択してください:</label>
-        <select name="category" id="category" required>
-            <option value="軽食">軽食</option>
-            <option value="がっつり">がっつり</option>
-            <option value="甘いもの">甘いもの</option>
-        </select>
-        <button type="submit">検索</button>
-    </form>
+    <h1>ジャンルを選択してください</h1>
+    <ul>
+        <li><a href="{{ url_for('result', category='軽食') }}">軽食</a></li>
+        <li><a href="{{ url_for('result', category='がっつり') }}">がっつり</a></li>
+        <li><a href="{{ url_for('result', category='甘いもの') }}">甘いもの</a></li>
+        <li><a href="{{ url_for('result', category='ラーメン') }}">ラーメン</a></li>
+        <li><a href="{{ url_for('result', category='居酒屋') }}">居酒屋</a></li>
+        <li><a href="{{ url_for('result', category='中華料理') }}">中華料理</a></li>
+        <li><a href="{{ url_for('result', category='海鮮') }}">海鮮</a></li>
+        <li><a href="{{ url_for('result', category='カフェ') }}">カフェ</a></li>
+    </ul>
+
+    <!-- ホームに戻るボタン -->
+    <a href="{{ url_for('home') }}" class="back-button">ホームに戻る</a>
 </body>
 </html>
 

@@ -1,20 +1,62 @@
 <!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+<html lang="ja">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>スケジュール一覧</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='schedulelist.css') }}">
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    <h1>スケジュール一覧</h1>
-    <ul>
-        {% for post in posts %}
-        <li>
-            <p>投稿者ID: {{ post.user_id }}</p>
-            <p>場所1: {{ post.place1 }} ({{ post.time1 }})</p>
-            <p>場所2: {{ post.place2 }} ({{ post.time2 }})</p>
-            <p>場所3: {{ post.place3 }} ({{ post.time3 }})</p>
-            <p>場所4: {{ post.place4 }} ({{ post.time4 }})</p>
-        </li>
-        {% endfor %}
-    </ul>
+
+    <!-- タスクバー -->
+    <div class="taskbar">
+        <a href="{{ url_for('adduser') }}">新規登録</a>
+        <a href="{{ url_for('login') }}">ログイン</a>
+        <a href="{{ url_for('home') }}">ホーム</a>
+    </div>
+
+    <!-- スケジュール一覧 -->
+    <div class="content">
+        <h1>スケジュール一覧</h1>
+        <ul class="schedule-list">
+            {% for post in posts %}
+            <li>
+                <p><strong>投稿者:</strong> {{ post.id }}</p>
+                <p><strong>投稿タイトル:</strong> {{ post.post_name }}</p>
+                
+                <p><strong>時刻1:</strong> {{ post.time1 }} <strong>場所1:</strong> {{ post.place1 }}</p>
+    {% if post.image1_path %}
+        <img src="{{ url_for('static', filename=post.image1_path) }}" alt="画像1" style="max-width: 200px;">
+    {% endif %}
+    
+    {% if post.time2 %}
+        <p><strong>時刻2:</strong> {{ post.time2 }} <strong>場所2:</strong> {{ post.place2 }}</p>
+        {% if post.image2_path %}
+            <img src="{{ url_for('static', filename=post.image2_path) }}" alt="画像2" style="max-width: 200px;">
+        {% endif %}
+    {% endif %}
+
+    {% if post.time3 %}
+        <p><strong>時刻3:</strong> {{ post.time3 }} <strong>場所3:</strong> {{ post.place3 }}</p>
+        {% if post.image3_path %}
+            <img src="{{ url_for('static', filename=post.image3_path) }}" alt="画像3" style="max-width: 200px;">
+        {% endif %}
+    {% endif %}
+
+    {% if post.time4 %}
+        <p><strong>時刻4:</strong> {{ post.time4 }} <strong>場所4:</strong> {{ post.place4 }}</p>
+        {% if post.image4_path %}
+            <img src="{{ url_for('static', filename=post.image4_path) }}" alt="画像4" style="max-width: 200px;">
+        {% endif %}
+    {% endif %}
+{% endfor %}
+        </ul>
+    </div>
 </body>
 </html>
