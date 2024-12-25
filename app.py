@@ -14,7 +14,7 @@ from sqlalchemy.ext.declarative import declarative_base
 import os
 import list
 from werkzeug.utils import secure_filename
-
+import random
 
 app = Flask(__name__)
 UPLOAD_FOLDER = 'static/uploads'
@@ -171,22 +171,32 @@ def delete_post(post_name):
 def load_user(user_id):
     return User.query.get(user_id)
 
+
+
+# 画像ファイルのリスト
+images = [
+    'static/yakitori.jpg',
+    'static/curry.jpg',
+    'static/工場.jpeg',
+    'static/地球岬.jpg'
+]
+
 # ホーム画面
 @app.route('/')
 def home():
     global uid
     #store_set()
     if uid:
-        return render_template('newhome.html')
+        return render_template('newhome.html', images=images)
     else:
-        return render_template('home.html')
+        return render_template('home.html', images=images)
 
 #ログイン後のホーム画面
 @app.route('/newhome')
 def newhome():
     if uid:
     #store_set()
-        return render_template('newhome.html')
+        return render_template('newhome.html', images=images)
     else:
         return redirect(url_for('home'))
 
@@ -207,7 +217,7 @@ def login():
             user = User.query.filter_by(password=newpass).first()
             if user is not None:
                 uid = user_id
-                return redirect(url_for('newhome'))           
+                return redirect(url_for('newhome',images=images))           
             else:
                 flash('パスワードが間違っています。再度入力してください。')
                 return redirect(url_for('login'))
