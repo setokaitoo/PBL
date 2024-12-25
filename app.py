@@ -143,7 +143,7 @@ def store_set():
     store = Store(**list.stores13)
     db.session.add(store)
     db.session.commit()
-    
+  
 # スケジュール削除機能
 from flask import redirect, url_for, flash
 from flask_login import current_user, login_required
@@ -235,15 +235,26 @@ def adduser():
            
             
             
-        else:
+        #else:
             user = User(id=newid, mailaddress=mail, password=newpass)
             db.session.add(user)
             db.session.commit()
             return redirect(url_for('login'))
+        
+        else:
+            user = User(id=newid, mailaddress=mail, password=newpass)
+            db.session.add(user)
+            db.session.commit()
+            return redirect(url_for('success'))
+
             
         
         #return redirect(url_for('createuser', id=newid, mail=mail))
     return render_template('adduser.html')
+#新規登録成功画面
+@app.route('/success', methods=['GET'])
+def success():
+    return render_template('success.html')
 
 #新規登録結果画面
 @app.route('/createuser')
