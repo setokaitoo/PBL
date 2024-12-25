@@ -7,11 +7,19 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='schedulelist.css') }}">
     <style>
         .hidden {
-          display: none;
+            display: none;
         }
-        img {
-            max-width: 200px;
-            height: auto;
+        .favorite-button {
+            background-color: #ffd700;
+            border: none;
+            padding: 5px 10px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 5px;
+            color: #333;
+        }
+        .favorite-button:hover {
+            background-color: #ffc107;
         }
     </style>
 </head>
@@ -36,14 +44,14 @@
 
                 <!-- 画像1の表示 -->
                 {% if post.image1_path %}
-                    <img src="{{ url_for('static', filename=post.image1_path) }}" alt="画像1">
+                    <img src="{{ url_for('static', filename=post.image1_path) }}" alt="画像1" style="max-width: 200px;">
                 {% endif %}
 
                 <!-- 場所2と画像2 -->
                 {% if post.place2 %}
                     <p><strong>場所2:</strong> {{ post.place2 }} (<span>{{ post.time2 }}</span>)</p>
                     {% if post.image2_path %}
-                        <img src="{{ url_for('static', filename=post.image2_path) }}" alt="画像2">
+                        <img src="{{ url_for('static', filename=post.image2_path) }}" alt="画像2" style="max-width: 200px;">
                     {% endif %}
                 {% endif %}
 
@@ -51,7 +59,7 @@
                 {% if post.place3 %}
                     <p><strong>場所3:</strong> {{ post.place3 }} (<span>{{ post.time3 }}</span>)</p>
                     {% if post.image3_path %}
-                        <img src="{{ url_for('static', filename=post.image3_path) }}" alt="画像3">
+                        <img src="{{ url_for('static', filename=post.image3_path) }}" alt="画像3" style="max-width: 200px;">
                     {% endif %}
                 {% endif %}
 
@@ -59,9 +67,14 @@
                 {% if post.place4 %}
                     <p><strong>場所4:</strong> {{ post.place4 }} (<span>{{ post.time4 }}</span>)</p>
                     {% if post.image4_path %}
-                        <img src="{{ url_for('static', filename=post.image4_path) }}" alt="画像4">
+                        <img src="{{ url_for('static', filename=post.image4_path) }}" alt="画像4" style="max-width: 200px;">
                     {% endif %}
                 {% endif %}
+
+                <!-- お気に入りボタン -->
+                <form >
+                    <button type="submit" class="favorite-button">お気に入り</button>
+                </form>
             </li>
             {% else %}
                 <p>投稿がありません。</p>
