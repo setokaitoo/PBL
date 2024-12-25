@@ -3,21 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ホーム</title>
-    <link rel ="stylesheet" href = "{{ url_for('static', filename='home.css') }}">
+    <title>ログイン後のホーム</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: background-image 1s ease-in-out;
+        }
+
+        .logo {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            width: 100px; /* ロゴ画像の幅 */
+            z-index: 3;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: auto;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            background-color: rgba(0, 0, 0, 0.6); /* 半透明背景 */
+            z-index: 2;
+            padding: 0 20px;
+        }
+
+        .header nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 15px;
+        }
+
+        .header nav ul li {
+            display: inline;
+        }
+
+        .header nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+
+        .header nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            color: white;
+            margin-top: 100px; /* ヘッダーとロゴ分のスペース */
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div class="logo-container">
-            <img src="{{url_for('static', filename='logo.png')}}" alt="アプリのロゴ" class="logo">
-    <h1>ホーム画面</h1>
-    <nav>
-        <ul>
-            <li><a href="{{ url_for('search') }}">ジャンル検索</a></li>
-            <li><a href="{{ url_for('mypage') }}">マイページ</a></li>
-            <li><a href="{{ url_for('schedulelist') }}">スケジュール一覧を見る</a></li>
-            <li><a href="{{ url_for('logout') }}">ログアウト</a></li>
-        </ul>
-    </nav>
+    <div class="background" id="background"></div>
+
+    <!-- ロゴ -->
+    <img src="{{ url_for('static', filename='logo.png') }}" alt="ロゴ" class="logo">
+
+    <!-- ヘッダー部分 -->
+    <div class="header">
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('search') }}">ジャンル検索</a></li>
+                <li><a href="{{ url_for('mypage') }}">マイページ</a></li>
+                <li><a href="{{ url_for('schedulelist') }}">スケジュール一覧を見る</a></li>
+                <li><a href="{{ url_for('logout') }}">ログアウト</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="content">
+        <h1>ホーム画面</h1>
+    </div>
+
+    <script>
+        // Pythonから渡された画像リストをJavaScriptで使用
+        const images = {{ images | tojson }};
+        const background = document.getElementById('background');
+        let currentIndex = 0;
+
+        function changeBackground() {
+            // 次の画像に切り替え
+            background.style.backgroundImage = `url(${images[currentIndex]})`;
+            currentIndex = (currentIndex + 1) % images.length;
+        }
+
+        // 初期表示
+        changeBackground();
+
+        // 5秒ごとに背景を切り替え
+        setInterval(changeBackground, 5000);
+    </script>
 </body>
 </html>
+

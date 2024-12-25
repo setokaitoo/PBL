@@ -5,22 +5,123 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ジャンル検索</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='search.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            min-height: 100vh;  /* ページ全体をスクロール可能にする */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;  /* 上部に余白を追加 */
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .category-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 20px;
+            padding-top: 50px;  /* 上部に余白を追加して全体を下にずらす */
+            flex-grow: 1;  /* コンテンツ領域を埋める */
+        }
+        .category-item {
+            width: 45%;  /* 2列表示にするため幅を調整 */
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+        }
+        .category-item img {
+            width: 100%;  /* 画像が親要素にフィットするように */
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .category-name {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.6);  /* 半透明の背景 */
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .back-button {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            text-decoration: none;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        /* レスポンシブ対応: 画面幅が600px未満の場合、1列に */
+        @media (max-width: 600px) {
+            .category-item {
+                width: 100%;  /* 1列表示 */
+            }
+        }
+    </style>
 </head>
 <body>
     <h1>ジャンルを選択してください</h1>
-    <ul>
-        <li><a href="{{ url_for('result', category='軽食') }}">軽食</a></li>
-        <li><a href="{{ url_for('result', category='がっつり') }}">がっつり</a></li>
-        <li><a href="{{ url_for('result', category='甘いもの') }}">甘いもの</a></li>
-        <li><a href="{{ url_for('result', category='ラーメン') }}">ラーメン</a></li>
-        <li><a href="{{ url_for('result', category='居酒屋') }}">居酒屋</a></li>
-        <li><a href="{{ url_for('result', category='中華料理') }}">中華料理</a></li>
-        <li><a href="{{ url_for('result', category='海鮮') }}">海鮮</a></li>
-        <li><a href="{{ url_for('result', category='カフェ') }}">カフェ</a></li>
-    </ul>
+    <div class="category-container">
+        <div class="category-item">
+            <a href="{{ url_for('result', category='軽食') }}">
+                <div class="category-name">軽食</div>
+                <img src="{{ url_for('static', filename='keisyoku.jpg') }}" alt="軽食">
+            </a>
+        </div>
+        <div class="category-item">
+            <a href="{{ url_for('result', category='がっつり') }}">
+                <div class="category-name">がっつり</div>
+                <img src="{{ url_for('static', filename='R.jpeg') }}" alt="がっつり">
+            </a>
+        </div>
+        <div class="category-item">
+            <a href="{{ url_for('result', category='甘いもの') }}">
+                <div class="category-name">甘いもの</div>
+                <img src="{{ url_for('static', filename='pan.jpg') }}" alt="甘いもの">
+            </a>
+        </div>
+        <div class="category-item">
+            <a href="{{ url_for('result', category='ラーメン') }}">
+                <div class="category-name">ラーメン</div>
+                <img src="{{ url_for('static', filename='ramen.jpeg') }}" alt="ラーメン">
+            </a>
+        </div>
+        <div class="category-item">
+            <a href="{{ url_for('result', category='居酒屋') }}">
+                <div class="category-name">居酒屋</div>
+                <img src="{{ url_for('static', filename='yakitori.jpg') }}" alt="居酒屋">
+            </a>
+        </div>
+        <div class="category-item">
+            <a href="{{ url_for('result', category='中華料理') }}">
+                <div class="category-name">中華料理</div>
+                <img src="{{ url_for('static', filename='tyuuka.jpg') }}" alt="中華料理">
+            </a>
+        </div>
+        <div class="category-item">
+            <a href="{{ url_for('result', category='海鮮') }}">
+                <div class="category-name">海鮮</div>
+                <img src="{{ url_for('static', filename='kaisenn.jpg') }}" alt="海鮮">
+            </a>
+        </div>
+        <div class="category-item">
+            <a href="{{ url_for('result', category='カフェ') }}">
+                <div class="category-name">カフェ</div>
+                <img src="{{ url_for('static', filename='cafe.jpeg') }}" alt="カフェ">
+            </a>
+        </div>
+    </div>
 
     <!-- ホームに戻るボタン -->
     <a href="{{ url_for('home') }}" class="back-button">ホームに戻る</a>
 </body>
 </html>
-
