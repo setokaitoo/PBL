@@ -86,6 +86,7 @@ class Post(db.Model):
     place4 = db.Column(db.String(255), nullable=True)
     image4_path = db.Column(db.String(200))  # 画像パスを保存するカラム
     image_path = db.Column(db.String(255), nullable=True)  # 画像の保存先パスを追加
+    like = db.Column(db.Integer, nullable=True, default=0)
     # 複合主キーを定義
     __table_args__ = (PrimaryKeyConstraint(id, post_name),)
     
@@ -95,6 +96,12 @@ class Store(db.Model):
     category = db.Column(db.String(50), nullable=False)
     homepage = db.Column(db.String(255), nullable=True)  # ホームページURL
     location = db.Column(db.String(255), nullable=True)  # 住所や地図リンク
+    
+class Favorite_user(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    fav_id = db.Column(db.String(255), db.ForeignKey('Post.id'))
+    post_name = db.Column(db.String(255), db.ForeignKey('Post.post_name'))
+    flag = db.Column(db.String(1), nullable=False, default=0)
 
 def store_set():
     store = Store(**list.stores1)
@@ -141,35 +148,6 @@ def store_set():
 from flask import redirect, url_for, flash
 from flask_login import current_user, login_required
 
-@app.route('/delete_post/<string:post_name>', methods=['POST'])
-@login_required  # ログインしていないユーザーをログインページにリダイレクト
-def delete_post(post_name):
-    try:
-        # ユーザーが認証されているか確認
-        if not current_user.is_authenticated:
-            flash('削除するにはログインが必要です。')
-            return redirect(url_for('login'))  # ログインページへリダイレクト
-
-        # 指定された投稿を取得
-        post = Post.query.filter_by(id=current_user.id, post_name=post_name).first()
-
-        # 投稿が存在しない場合の処理
-        if not post:
-            flash('投稿が見つかりませんでした。')
-            return redirect(url_for('mypage'))
-
-        # 投稿をデータベースから削除
-        db.session.delete(post)
-        db.session.commit()
-        flash('投稿を削除しました。')
-
-    except Exception as e:
-        flash(f'エラーが発生しました: {e}')
-
-    return redirect(url_for('mypage'))
-
-
-
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
@@ -197,6 +175,28 @@ def newhome():
 @app.route('/search')
 def search():
     return render_template('search.html')
+
+@app.route('/delete_post/<string:post_name>', methods=['POST'])  # ログインしていないユーザーをログインページにリダイレクト
+def delete_post(post_name):
+    global uid
+    try:
+        # 指定された投稿を取得
+        post = Post.query.filter_by(id=uid, post_name=post_name).first()
+
+        # 投稿が存在しない場合の処理
+        if not post:
+            flash('投稿が見つかりませんでした。')
+            return redirect(url_for('mypage'))
+
+        # 投稿をデータベースから削除
+        db.session.delete(post)
+        db.session.commit()
+        flash('投稿を削除しました。')
+
+    except Exception as e:
+        flash(f'エラーが発生しました: {e}')
+
+    return redirect(url_for('mypage'))
 
 # ログイン画面とユーザー登録処理
 @app.route('/login', methods=['GET', 'POST'])
