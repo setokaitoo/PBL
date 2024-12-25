@@ -99,8 +99,8 @@ class Store(db.Model):
     
 class Favorite_user(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    fav_id = db.Column(db.String(255), db.ForeignKey('Post.id'))
-    post_name = db.Column(db.String(255), db.ForeignKey('Post.post_name'))
+    fav_id = db.Column(db.String(255), db.ForeignKey('post.id'))
+    post_name = db.Column(db.String(255), db.ForeignKey('post.post_name'))
     flag = db.Column(db.String(1), nullable=False, default=0)
 
 def store_set():
