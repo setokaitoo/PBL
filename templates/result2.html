@@ -16,9 +16,9 @@
             <strong>{{ store.name }}</strong><br>
             カテゴリー: {{ store.category }}<br>
             <a href="{{ store.homepage }}" target="_blank">ホームページ</a><br>
-            場所: {{ store.location }}<br>
-            関連スポット: {{ store.recommended_places }}<br>
-            関連ページ: <a href="{{ store.recohome }}" target="_blank">{{ store.recohome }}</a>
+            <span>場所: <a href="{{ store.location }}" target="_blank">地図を見る</a></span><br>
+            <span>関連スポット: {{ store.recommended_places }}</span><br>
+            <span>関連ページ: <a href="{{ store.recohome }}" target="_blank">詳細を見る</a></span><br>
         </li>
     {% endfor %}
     </ul>

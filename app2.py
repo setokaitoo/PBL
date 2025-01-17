@@ -58,15 +58,17 @@ login_manager.login_view = 'login'
 def setup():
     db.create_all()
     
-def load_stores_from_csv(file_path='data/stores.csv'):
+def load_stores_from_csv(file_path='data/stores(in).csv'):
     stores = []
     try:
-        with open(file_path, mode='r', encoding='utf-8') as file:
+        with open(file_path, mode='r', encoding='shift_jis') as file:
             reader = csv.DictReader(file)
             for row in reader:
                 stores.append(row)
     except FileNotFoundError:
         print(f"CSVファイルが見つかりません: {file_path}")
+    except UnicodeDecodeError as e:
+        print(f"エンコーディングエラー: {e}")
     return stores
 
 

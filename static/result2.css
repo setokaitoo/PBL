@@ -1,0 +1,128 @@
+/* 全体のスタイル */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* ページのヘッダー */
+h1 {
+    font-size: 24px;
+    color: #4CAF50;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+/* 検索結果リストのスタイル */
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    max-width: 800px;
+    max-height: 60vh; /* スクロール可能にする高さ */
+    overflow-y: auto;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+}
+
+/* 各店舗情報のカードスタイル */
+li {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+li:last-child {
+    border-bottom: none;
+}
+
+/* 店舗名のスタイル */
+li strong {
+    font-size: 18px;
+    color: #333;
+    margin: 0;
+    display: block;
+}
+
+/* 各情報のスタイル */
+li span {
+    display: block;
+    margin: 5px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+/* リンクのスタイル */
+li a {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+li a:hover {
+    color: #45a049;
+}
+
+/* 戻るボタンのスタイル */
+.back-button {
+    display: block;
+    width: 200px;
+    margin: 20px auto;
+    text-align: center;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.back-button:hover {
+    background-color: #45a049;
+}
+
+/* スクロールバーのカスタマイズ */
+ul::-webkit-scrollbar {
+    width: 8px;
+}
+
+ul::-webkit-scrollbar-thumb {
+    background: #4CAF50;
+    border-radius: 5px;
+}
+
+ul::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 20px;
+    }
+
+    ul {
+        max-height: 50vh; /* モバイルでは高さを少し縮める */
+        padding: 10px;
+    }
+
+    li {
+        padding: 8px;
+    }
+
+    .back-button {
+        width: 90%;
+        font-size: 14px;
+        padding: 8px;
+    }
+}
