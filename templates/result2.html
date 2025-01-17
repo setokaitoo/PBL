@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>検索結果</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='result.css') }}">
+</head>
+
+<body>
+<h1>検索結果</h1>
+{% if stores %}
+    <ul>
+    {% for store in stores %}
+        <li>
+            <strong>{{ store.name }}</strong><br>
+            カテゴリー: {{ store.category }}<br>
+            <a href="{{ store.homepage }}" target="_blank">ホームページ</a><br>
+            場所: {{ store.location }}<br>
+            関連スポット: {{ store.recommended_places }}<br>
+            関連ページ: <a href="{{ store.recohome }}" target="_blank">{{ store.recohome }}</a>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>該当するお店が見つかりません。</p>
+{% endif %}
+<!-- ジャンル選択に戻るボタン -->
+<a href="{{ url_for('search') }}" class="back-button">ジャンル検索に戻る</a>
+</body>
+</html>
