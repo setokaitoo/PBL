@@ -39,7 +39,7 @@
         <ul class="schedule-list">
             {% for post in posts %}
             <li>
-                <p><strong>投稿者:</strong> {{ post.id }}</p>
+                <p><strong>投稿者:</strong> {{ post.user_id }}</p>
                 <p><strong>投稿タイトル:</strong> {{ post.post_name }}</p>
                 
                 <p><strong>時刻1:</strong> {{ post.time1 }} <strong>場所1:</strong> {{ post.place1 }}</p>
@@ -68,10 +68,7 @@
         {% endif %}
     {% endif %}
 
-                <!-- お気に入りボタン -->
-                <form>
-                    <button type="submit" class="favorite-btn">お気に入り</button>
-                </form>
+                
             </li>
             {% endfor %}
         </ul>

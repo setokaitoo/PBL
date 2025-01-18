@@ -29,6 +29,53 @@
 
             <!-- 新しいスケジュール投稿リンク -->
             <a href="/schedule">新しいスケジュールを投稿する</a>
+            <h2>お気に入りスケジュール一覧</h2>
+
+            <ul class="schedule-list">
+                {% for like in likes %}
+    <li>
+        <p><strong>投稿タイトル:</strong> {{ like.post_name }}</p>
+        <p><strong>場所1:</strong> {{ like.place1 }} (<span>{{ like.time1 }}</span>)</p>
+
+        <!-- 画像1がある場合 -->
+        {% if like.image1_path %}
+            <img src="{{ url_for('static', filename=like.image1_path) }}" alt="画像1" style="max-width: 200px;">
+        {% endif %}
+
+        <!-- 場所2と画像2 -->
+        {% if like.place2 %}
+            <p><strong>場所2:</strong> {{ like.place2 }} (<span>{{ like.time2 }}</span>)</p>
+            {% if like.image2_path %}
+                <img src="{{ url_for('static', filename=like.image2_path) }}" alt="画像2" style="max-width: 200px;">
+            {% endif %}
+        {% endif %}
+
+        <!-- 場所3と画像3 -->
+        {% if like.place3 %}
+            <p><strong>場所3:</strong> {{ like.place3 }} (<span>{{ like.time3 }}</span>)</p>
+            {% if like.image3_path %}
+                <img src="{{ url_for('static', filename=like.image3_path) }}" alt="画像3" style="max-width: 200px;">
+            {% endif %}
+        {% endif %}
+
+        <!-- 場所4と画像4 -->
+        {% if like.place4 %}
+            <p><strong>場所4:</strong> {{ like.place4 }} (<span>{{ like.time4 }}</span>)</p>
+            {% if like.image4_path %}
+                <img src="{{ url_for('static', filename=like.image4_path) }}" alt="画像4" style="max-width: 200px;">
+            {% endif %}
+        {% endif %}
+
+    </li>
+{% else %}
+    <p>投稿がありません。</p>
+{% endfor %}
+</ul>
+</div>
+</main>
+<main>
+    <div class="content">
+
             <h2>投稿したスケジュール一覧</h2>
 
             <ul class="schedule-list">

@@ -15,6 +15,8 @@ import os
 import list
 from werkzeug.utils import secure_filename
 import random
+import csv
+import pandas as pd
 
 app = Flask(__name__)
 UPLOAD_FOLDER = 'static/uploads'
@@ -31,22 +33,16 @@ app.secret_key = os.urandom(24)
 
 # dbのインスタンスを作成し、アプリに関連付け
 db = SQLAlchemy(app)
-
-# アプリケーションに db を関連付ける
-#db.init_app(app)
-
-#db = SQLAlchemy(app)
-
 migrate = Migrate(app, db)
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 
 
-@app.before_request
-def setup():
-    with app.app_context():
-        db.create_all()
+#@app.before_request
+#def setup():
+    #with app.app_context():
+        #db.create_all()
 
 uid = ''
 
@@ -61,18 +57,32 @@ login_manager.login_view = 'login'
 @app.before_request
 def setup():
     db.create_all()
+    
+def load_stores_from_csv(file_path='data/stores(in).csv'):
+    stores = []
+    try:
+        with open(file_path, mode='r', encoding='shift_jis') as file:
+            reader = csv.DictReader(file)
+            for row in reader:
+                stores.append(row)
+    except FileNotFoundError:
+        print(f"CSVファイルが見つかりません: {file_path}")
+    except UnicodeDecodeError as e:
+        print(f"エンコーディングエラー: {e}")
+    return stores
+
 
 class User(db.Model, UserMixin):
     __tablename__ = 'user'
-    id = db.Column(db.String(255), primary_key=True)
+    user_id = db.Column(db.String(255), primary_key=True)
     mailaddress = db.Column(db.String(255), nullable=False)
     password = db.Column(db.String(50), nullable=False)
     #def check_password(self, password):
     #    return check_password_hash(self.password_hash, password)
     
 class Post(db.Model):
-    id = db.Column(db.String(255), primary_key=True)
-    post_name = db.Column(db.String(255), primary_key=True)
+    post_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    post_name = db.Column(db.String(255), nullable=False)
     time1 = db.Column(db.DateTime, nullable=False)
     place1 = db.Column(db.String(255), nullable=False)
     image1_path = db.Column(db.String(200))  # 画像パスを保存するカラム
@@ -86,58 +96,14 @@ class Post(db.Model):
     place4 = db.Column(db.String(255), nullable=True)
     image4_path = db.Column(db.String(200))  # 画像パスを保存するカラム
     image_path = db.Column(db.String(255), nullable=True)  # 画像の保存先パスを追加
-    # 複合主キーを定義
-    __table_args__ = (PrimaryKeyConstraint(id, post_name),)
+    user_id = db.Column(db.String(255), db.ForeignKey('user.user_id'))
     
-class Store(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), nullable=False)
-    category = db.Column(db.String(50), nullable=False)
-    homepage = db.Column(db.String(255), nullable=True)  # ホームページURL
-    location = db.Column(db.String(255), nullable=True)  # 住所や地図リンク
-
-
-def store_set():
-    store = Store(**list.stores1)
-    db.session.add(store)
-    db.session.commit()
-    store = Store(**list.stores2)
-    db.session.add(store)
-    db.session.commit()
-    store = Store(**list.stores3)
-    db.session.add(store)
-    db.session.commit()
-    store = Store(**list.stores4)
-    db.session.add(store)
-    db.session.commit()
-    store = Store(**list.stores5)
-    db.session.add(store)
-    db.session.commit()
-    store = Store(**list.stores6)
-    db.session.add(store)
-    db.session.commit()
-    store = Store(**list.stores7)
-    db.session.add(store)
-    db.session.commit()
-    store = Store(**list.stores8)
-    db.session.add(store)
-    db.session.commit()
-    store = Store(**list.stores9)
-    db.session.add(store)
-    db.session.commit()
-    store = Store(**list.stores10)
-    db.session.add(store)
-    db.session.commit()
-    store = Store(**list.stores11)
-    db.session.add(store)
-    db.session.commit()
-    store = Store(**list.stores12)
-    db.session.add(store)
-    db.session.commit()
-    store = Store(**list.stores13)
-    db.session.add(store)
-    db.session.commit()
+class Like(db.Model):
+    like_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user_id = db.Column(db.String(255), db.ForeignKey('user.user_id'))
+    post_id = db.Column(db.Integer, db.ForeignKey('post.post_id'))
     
+
 
 
 @app.route('/delete_post/<string:post_name>', methods=['POST'])
@@ -148,7 +114,7 @@ def delete_post(post_name):
         
 
         # 指定された投稿を取得
-        post = Post.query.filter_by(id=uid, post_name=post_name).first()
+        post = Post.query.filter_by(user_id=uid, post_name=post_name).first()
 
         # 投稿が存在しない場合の処理
         if not post:
@@ -212,7 +178,7 @@ def login():
     if request.method == 'POST':
         newpass = request.form['password']
         user_id = request.form['user_id']      
-        user = User.query.filter_by(id=user_id).first()
+        user = User.query.filter_by(user_id=user_id).first()
         if user is not None:
             user = User.query.filter_by(password=newpass).first()
             if user is not None:
@@ -235,7 +201,7 @@ def adduser():
         mail = request.form['mail']
         newid = request.form['id']
         
-        user = User.query.filter_by(id=newid).first()
+        user = User.query.filter_by(user_id=newid).first()
         if user is not None:
             flash('このユーザーIDは既に使用されています。')
             return redirect(url_for('adduser'))#再度登録画面へ
@@ -243,10 +209,10 @@ def adduser():
             
             
         else:
-            user = User(id=newid, mailaddress=mail, password=newpass)
+            user = User(user_id=newid, mailaddress=mail, password=newpass)
             db.session.add(user)
             db.session.commit()
-            return redirect(url_for('login'))
+            return render_template('success.html')
             
         
         #return redirect(url_for('createuser', id=newid, mail=mail))
@@ -265,21 +231,26 @@ def mypage():
     global uid
     
     if uid:
+        like = db.session.query(Post).join(
+            Like, Like.post_id == Post.post_id  # LikeテーブルとPostテーブルをpost_idで結合
+        ).filter(Like.user_id == uid).all()
+        
         # ログイン中のユーザーの投稿を取得
-        user_posts = Post.query.filter_by(id=uid).order_by(Post.id.desc()).all()
-        return render_template('mypage.html', user_id=uid, posts=user_posts)
+        user_posts = Post.query.filter_by(user_id=uid).order_by(Post.post_id.desc()).all()
+        return render_template('mypage.html', user_id=uid, posts=user_posts, likes=like)
     else:
         return redirect(url_for('login'))
 
 # 店舗検索結果画面
-@app.route('/result')
-def result():
+@app.route('/result2')
+def result2():
     category = request.args.get('category')
-    # データベースから該当するお店を検索
-    
-    stores = Store.query.filter_by(category=category).all()
+    # CSVからデータを読み込む
+    stores = load_stores_from_csv()
+    # 指定されたカテゴリのお店をフィルタリング
+    filtered_stores = [store for store in stores if store['category'] == category]
 
-    return render_template('result.html', stores=stores)
+    return render_template('result2.html', stores=filtered_stores)
 
 # 店舗詳細画面
 @app.route('/details/<int:store_id>')
@@ -318,7 +289,6 @@ def schedule():
 
         # 新しい投稿を作成して保存
         new_post = Post(
-            id=uid,
             post_name=title,
             time1=time1,
             place1=place1,
@@ -331,7 +301,8 @@ def schedule():
             image3_path=image3_path,
             time4=datetime.strptime(request.form['time4'], '%Y-%m-%dT%H:%M') if request.form.get('time4') else None,
             place4=request.form.get('place4'),
-            image4_path=image4_path
+            image4_path=image4_path,
+            user_id=uid
         )
         db.session.add(new_post)
         db.session.commit()
@@ -343,19 +314,42 @@ def schedule():
             return render_template('schedule.html')
         else:
             return redirect(url_for('login'))
+        
 #スケジュール一覧画面
-@app.route('/schedulelist')
+@app.route('/schedulelist', methods=['GET', 'POST'])
 def schedulelist():
     global uid
-    try:
-        # データベースからすべての投稿を取得
-        all_posts = Post.query.all()
+    try:    
         if uid:
-            return render_template('newschedulelist.html', posts=all_posts)
+            query = db.session.query(Post, Like).outerjoin(Like, (Like.user_id == uid) & (Post.post_id == Like.post_id))
+            # クエリを実行
+            results = query.all()
+            
+            return render_template('newschedulelist.html', posts=results)
         else:
+            all_posts = Post.query.all()
             return render_template('schedulelist.html', posts=all_posts)
     except Exception as e:
         return f"エラーが発生しました: {e}", 400
+
+#お気に入り追加
+@app.route('/add_like/<int:post_id>')
+def add_favorite(post_id):
+    global uid
+    like = Like(user_id=uid, post_id=post_id)
+    db.session.add(like)
+    db.session.commit()
+    return redirect(url_for('schedulelist'))
+
+#お気に入り削除
+@app.route('/remove_favorite/<int:post_id>')
+def remove_favorite(post_id):
+    global uid
+    like = Like.query.filter_by(user_id=uid, post_id=post_id).first()
+    if like:
+        db.session.delete(like)
+        db.session.commit()
+    return redirect(url_for('schedulelist'))
     
 @app.route('/logout')
 def logout():
