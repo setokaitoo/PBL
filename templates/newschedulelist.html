@@ -38,6 +38,13 @@
         <ul class="schedule-list">
             {% for post,like in posts %}
             <li>
+                <!-- お気に入りボタン -->
+                {% if like.like_id %}
+                    <a href="{{ url_for('remove_favorite', post_id=post.post_id) }}">★</a>
+                {% else %}
+                    <a href="{{ url_for('add_favorite', post_id=post.post_id) }}">☆</a>
+                {% endif %}
+                
                 <p><strong>投稿者:</strong> {{ post.user_id }}</p>
                 <p><strong>投稿タイトル:</strong> {{ post.post_name }}</p>
                 <p><strong>場所1:</strong> {{ post.place1 }} (<span>{{ post.time1 }}</span>)</p>
@@ -73,12 +80,6 @@
 
                 
 
-                <!-- お気に入りボタン -->
-                {% if like.like_id %}
-                    <a href="{{ url_for('remove_favorite', post_id=post.post_id) }}">お気に入りから削除</a>
-                {% else %}
-                    <a href="{{ url_for('add_favorite', post_id=post.post_id) }}">お気に入りに追加</a>
-                {% endif %}
                 
                 
             </li>
